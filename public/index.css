@@ -1,0 +1,25 @@
+body{
+    background-image: url(pexels-dom-j-45717.jpg);
+}
+
+.main-wrapper{
+    margin-left: 50px;
+}
+
+.main-wrapper h1{
+    font-size: 50px;
+    color: #000;
+    -webkit-text-stroke: 1px #FFF;
+    text-stroke: 1px #FFF;
+}
+
+.main-wrapper h3{
+    font-size: 30px;
+    color: #000;
+    -webkit-text-stroke: 1px #FFF;
+    text-stroke: 1px #FFF;
+}
+
+.MuiPaper-root{
+    float:right;
+}
