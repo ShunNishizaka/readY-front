@@ -43,7 +43,7 @@ export default function SignInSide() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Grid container component="main" sx={{ height: '93vh' }} spacing={2}>
+			<Grid container component="main" sx={{ height: '93vh' }} spacing={0}>
 				<CssBaseline />
 				<Grid item md={8}>
 					<LP/>
@@ -62,6 +62,7 @@ export default function SignInSide() {
 						backgroundPosition: 'center',
 					}}
 				/> */}
+				{/*以下の「className='login-box'」はいじらないこと*/}
 				<Grid item className='login-box' xs={12} sm={12} md={4} component={Paper} elevation={6} square>
 					<Box
 						sx={{
@@ -76,7 +77,7 @@ export default function SignInSide() {
 							<LockOutlinedIcon />
 						</Avatar>
 						<Typography component="h1" variant="h5">
-							Sign Up
+						アカウント作成
 						</Typography>
 						<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 							<TextField
@@ -115,7 +116,7 @@ export default function SignInSide() {
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
 							>
-								Sign Up
+								作成
 							</Button>
 							<Grid container>
 							</Grid>

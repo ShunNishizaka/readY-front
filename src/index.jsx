@@ -1,14 +1,13 @@
 import Header from './modules/Header'
-import Login from './signUp'
-
+import SignUp from './signUp'
 
 function App() {
-  return (
-    <div className="App">
-      <Header />
-			<Login />
-    </div>
-  )
+	return (
+		<div className="App">
+			<Header />
+			<SignUp />
+		</div>
+	)
 }
 
 export default App
