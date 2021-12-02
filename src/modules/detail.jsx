@@ -13,6 +13,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
 
 
@@ -86,15 +87,7 @@ export default function Details() {
                 <Typography booktitle variant="title" component="div">
                   書籍タイトル
                 </Typography>
-                  <IconButton aria-label="bookRead" onClick={onClickRead}>
-                    {readIcon ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
-                  </IconButton>
-                  <IconButton aria-label="bookPurchased" onClick={onClickPurchased}>
-                    {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
-                  </IconButton>
-                  <IconButton aria-label="bookPurchased" onClick={onClickFavorite}>
-                    {favoriteIcon ? <FavoriteBorderIcon/> : <FavoriteIcon />}
-                  </IconButton>
+                <BookInfoIcons />
                 <Typography variant="info" component="div">
                   書籍情報
                 </Typography>
