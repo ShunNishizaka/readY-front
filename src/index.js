@@ -1,17 +1,17 @@
-import App from './index.jsx';
+import LandingPage from './pages/landingPage.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './login/login'
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
-import MyPage from './myPage.jsx';
+import LoginPage from './pages/loginPage'
+import { BrowserRouter as Router, Route, Switch, Routes} from 'react-router-dom';
+import MyPage from './pages/myPage.jsx';
 
 ReactDOM.render(
   <Router>
-    <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/mypage" element={<MyPage />} />
-    </Routes>
-  </Router>,
-  document.getElementById('root')
+		<Routes>
+			<Route path="/" element={<LandingPage/>}/>
+			<Route path="/login" element={<LoginPage/>} />
+			<Route path="/mypage" element={<MyPage/>}/>
+		</Routes>
+	</Router>,
+	document.getElementById('root')
 );

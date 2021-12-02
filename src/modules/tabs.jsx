@@ -7,6 +7,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import BookInfo from './bookInfo'
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -20,7 +21,7 @@ function TabPanel(props) {
 			{...other}
 		>
 			{value === index && (
-				<Box sx={{ p: 13 }}>
+				<Box sx={{ p: 3 }}>
 					<Typography>{children}</Typography>
 				</Box>
 			)}
@@ -65,10 +66,10 @@ export default function FullWidthTabs() {
 					variant="fullWidth"
 					aria-label="full width tabs example"
 				>
-					<Tab label="Item One" {...a11yProps(0)} />
-					<Tab label="Item Two" {...a11yProps(1)} />
-					<Tab label="Item Three" {...a11yProps(2)} />
-					<Tab label="Item Four" {...a11yProps(3)} />
+					<Tab label="お気に入り書籍" {...a11yProps(0)} />
+					<Tab label="お気に入り作者" {...a11yProps(1)} />
+					<Tab label="お気に入りシリーズ" {...a11yProps(2)} />
+					<Tab label="グループ一覧(未)" {...a11yProps(3)} />
 				</Tabs>
 			</AppBar>
 			<SwipeableViews
@@ -77,7 +78,7 @@ export default function FullWidthTabs() {
 				onChangeIndex={handleChangeIndex}
 			>
 				<TabPanel value={value} index={0} dir={theme.direction}>
-					Item One
+					<BookInfo></BookInfo>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					Item Two

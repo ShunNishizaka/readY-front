@@ -28,7 +28,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import ButtonAppBar from '../modules/Header';
+import Header from '../modules/header';
 import { Link as RLink} from "react-router-dom";
 
 function Copyright(props) {
@@ -59,7 +59,7 @@ export default function login() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<ButtonAppBar />
+			<Header />
 			<Grid container component="main" sx={{ height: '100vh' }}>
 				<CssBaseline />
 				<Grid item className='login-box' xs={12} sm={12} md={12} component={Paper} elevation={6} square>
