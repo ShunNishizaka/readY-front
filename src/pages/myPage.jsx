@@ -1,5 +1,5 @@
-import MyPageHeader from './modules/myPageHeader'
-import Tabs from './modules/tabs'
+import MyPageHeader from '../modules/myPageHeader'
+import Tabs from '../modules/tabs'
 
 function MyPage() {
 	return (
