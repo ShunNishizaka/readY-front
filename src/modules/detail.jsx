@@ -1,5 +1,6 @@
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { useState } from 'react';
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -9,7 +10,14 @@ import MenuBookSharpIcon from "@mui/icons-material/MenuBookSharp";
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
 import Button from "@mui/material/Button";
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import "../index.css";
+
+
 
 const Img = styled("img")({
   margin: "auto",
@@ -29,7 +37,38 @@ const theme = createTheme({
   },
 });
 
-export default function ComplexGrid() {
+
+
+export default function Details() {
+
+  const [readIcon, setReadIcon] = useState(false);
+  const [purchasedIcon,setPurchasedIcon] = useState(false);
+  const [favoriteIcon,setFavoriteIcon] = useState(false);
+  
+  const onClickRead = () => {
+    if (readIcon === false) {
+      setReadIcon(true)
+    } else {
+      setReadIcon(false)
+    }
+  }
+
+  const onClickPurchased = () => {
+    if (purchasedIcon === false) {
+      setPurchasedIcon(true)
+    } else {
+      setPurchasedIcon(false)
+    }
+  }
+
+  const onClickFavorite = () => {
+    if (favoriteIcon === false) {
+      setFavoriteIcon(true)
+    } else {
+      setFavoriteIcon(false)
+    }
+  }
+
   return (
     <Paper
       variant="outlined"
@@ -49,25 +88,15 @@ export default function ComplexGrid() {
                 <Typography booktitle variant="title" component="div">
                   書籍タイトル
                 </Typography>
-                <Typography variant="button1" gutterBottom>
-                  <IconButton
-                    IconButton
-                    aria-label="MenuBookSharp"
-                    size="large"
-                  >
-                    <MenuBookSharpIcon />
+                  <IconButton aria-label="bookRead" onClick={onClickRead}>
+                    {readIcon ? <BookmarkAddedIcon /> : <BookmarkBorderIcon />}
                   </IconButton>
-                </Typography>
-                <Typography variant="button1" gutterBottom>
-                  <IconButton aria-label="CurrencyYenSharp" size="large">
-                    <MonetizationOnIcon />
+                  <IconButton aria-label="bookPurchased" onClick={onClickPurchased}>
+                    {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
                   </IconButton>
-                </Typography>
-                <Typography variant="button1" gutterBottom>
-                  <IconButton aria-label="FavoriteBorderSharp" size="large">
-                    <FavoriteBorderSharpIcon />
+                  <IconButton aria-label="bookPurchased" onClick={onClickFavorite}>
+                    {favoriteIcon ? <FavoriteBorderIcon/> : <FavoriteIcon />}
                   </IconButton>
-                </Typography>
                 <Typography variant="info" component="div">
                   書籍情報
                 </Typography>
