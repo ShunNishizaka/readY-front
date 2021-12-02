@@ -6,7 +6,7 @@ import Grid from "@mui/material/Grid";
 import ButtonBase from "@mui/material/ButtonBase";
 import IconButton from "@mui/material/IconButton";
 import MenuBookSharpIcon from "@mui/icons-material/MenuBookSharp";
-import CurrencyYenSharpIcon from "@mui/icons-material/CurrencyYenSharp";
+import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderSharpIcon from "@mui/icons-material/FavoriteBorderSharp";
 import Button from "@mui/material/Button";
 import "../index.css";
@@ -60,7 +60,7 @@ export default function ComplexGrid() {
                 </Typography>
                 <Typography variant="button1" gutterBottom>
                   <IconButton aria-label="CurrencyYenSharp" size="large">
-                    <CurrencyYenSharpIcon />
+                    <MonetizationOnIcon />
                   </IconButton>
                 </Typography>
                 <Typography variant="button1" gutterBottom>

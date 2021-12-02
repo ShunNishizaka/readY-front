@@ -2,7 +2,7 @@ import LandingPage from './pages/landingPage.jsx';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import LoginPage from './pages/loginPage'
-import { BrowserRouter as Router, Route, Switch, Routes} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import MyPage from './pages/myPage.jsx';
 import BookDetail from './pages/bookDetail.jsx';
 
