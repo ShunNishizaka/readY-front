@@ -1,11 +1,11 @@
-import GoToMyPageHeader from './modules/goToMyPageHeader'
-import Detail from './modules/detail'
+import GoToMyPageHeader from '../modules/goToMyPageHeader'
+import Detail from '../modules/detail'
 
 function BookDetail() {
 	return (
 		<div className="BookDetail">
 			<GoToMyPageHeader />
-			<Detail /> 
+			<Detail />
 		</div>
 	)
 }
