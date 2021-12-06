@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import BookInfo from './bookInfo';
 import FavoriteAuthor from './favoriteAuthor';
+import SeriesInfo from './seriesInfo';
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -85,7 +86,7 @@ export default function FullWidthTabs() {
 					<FavoriteAuthor></FavoriteAuthor>
 				</TabPanel>
 				<TabPanel value={value} index={2} dir={theme.direction}>
-					Item Three
+					<SeriesInfo></SeriesInfo>
 				</TabPanel>
 				<TabPanel value={value} index={3} dir={theme.direction}>
 					Item Four

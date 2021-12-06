@@ -2,6 +2,8 @@ import Button from "@mui/material/Button";
 import { Link } from "react-router-dom";
 import Header from '../modules/header.jsx'
 import SignUp from '../signUp'
+import LP from '../lp'
+import Grid from '@mui/material/Grid';
 
 function LandingPage() {
 	return (
@@ -9,7 +11,14 @@ function LandingPage() {
 			<Header>
 				<Button color="inherit" size="large" to="/login" component={Link}>ログイン</Button>
 			</Header>
-			<SignUp />
+			<Grid container square>
+				<Grid item lg={8} sm={12}>
+					<LP/>
+				</Grid>
+				<Grid item lg={4} sm={12}>
+					<SignUp/>
+				</Grid>
+			</Grid>
 		</div>
 	)
 }
