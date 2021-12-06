@@ -27,27 +27,10 @@ export default function SignInSide() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Grid container component="main" sx={{ height: '93vh' }} spacing={0}>
+			<Grid container component="main" sx={{ height: '120vh' }} spacing={0}>
 				<CssBaseline />
-				<Grid item md={8}>
-					<LP/>
-				</Grid>
-				{/* <Grid
-					item
-					xs={false}
-					sm={4}
-					md={7}
-					sx={{
-						backgroundImage: 'url(https://source.unsplash.com/random)',
-						backgroundRepeat: 'no-repeat',
-						backgroundColor: (t) =>
-							t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-						backgroundSize: 'cover',
-						backgroundPosition: 'center',
-					}}
-				/> */}
 				{/*以下の「className='login-box'」はいじらないこと*/}
-				<Grid item className='login-box' xs={12} sm={12} md={4} component={Paper} elevation={6} square>
+				<Grid item className='login-box' xs={12} sm={12} md={12} component={Paper} elevation={6} square>
 					<Box
 						sx={{
 							my: 8,
