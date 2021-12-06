@@ -12,14 +12,12 @@ import BookInfoIcons from './bookInfoIcons';
 
 export default function ExperimentBookInfo() {
 
-    
-
     return(
-      <Grid item xs={1} sm={1} >
+      <Grid item xs={12} sm={6} md={2.8} >
         <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}        >
          <CardMedia  component="img" image="https://source.unsplash.com/random" alt="random"  height="200"/>
         <BookInfoIcons></BookInfoIcons>
-        <CardContent sx={{ flexGrow: 1 }}>
+        <CardContent sx={{ flexGrow: 0 }}>
           <Typography gutterBottom variant="h6" component="h2">
             書籍名《オレオレ詐欺完全攻略》
           </Typography>
