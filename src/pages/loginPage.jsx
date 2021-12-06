@@ -27,7 +27,6 @@ export default function login() {
 
 	return (
 		<ThemeProvider theme={theme}>
-			<Header/>
 			<Grid container component="main" sx={{ height: '100vh' }}>
 				<CssBaseline />
 				<Grid item className='login-box' xs={12} sm={12} md={12} component={Paper} elevation={6} square>
