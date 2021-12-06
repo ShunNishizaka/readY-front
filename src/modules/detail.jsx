@@ -5,14 +5,7 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ButtonBase from "@mui/material/ButtonBase";
-import IconButton from "@mui/material/IconButton";
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import Button from "@mui/material/Button";
-import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
-import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
 
@@ -72,12 +65,11 @@ export default function Details() {
     <Paper
       variant="outlined"
       elevation={0}
-      sx={{ p: 3, m: "auto", flexGrow: 1 }}
-    >
+      sx={{ p: 3, m: "auto", flexGrow: 1 }}>
       <Grid container spacing={4}>
         <Grid item>
           <ButtonBase sx={{ width: 200, height: 200 }}>
-            <Img alt="表紙" src="C:/Users/180581/Documents/test.jpg" />
+            <Img alt="表紙" src="C:/Users/180581/Downloads/test.JPG" />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
