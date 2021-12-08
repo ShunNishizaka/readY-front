@@ -4,22 +4,9 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BookCard from './bookCard'
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10];
 
@@ -37,7 +24,7 @@ export default function Album() {
           {/* End hero unit */}
           <Grid container spacing={3}>
             {cards.map((card) => (
-              <BookCard/>
+              <BookCard title="詐欺のやり方完全マニュアル"/>
             ))}
           </Grid>
         </Container>

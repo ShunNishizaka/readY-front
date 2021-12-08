@@ -1,10 +1,7 @@
 import * as React from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import Link from '@mui/material/Link';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import SeriesCard from './seriesCrad'
 
@@ -24,7 +21,7 @@ export default function Album() {
           {/* End hero unit */}
           <Grid container spacing={3}>
             {cards.map((card) => (
-              <SeriesCard />
+              <SeriesCard title="シリーズ名《犯罪のやり方全集》"/>
             ))}
           </Grid>
         </Container>
