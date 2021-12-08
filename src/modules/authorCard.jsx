@@ -6,6 +6,7 @@ import CardActions from '@mui/material/CardActions';
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import ExperimentBookCard from './experimentBookCard';
+import Card from '@mui/material/Card';
 
 
 export default function AutherCard() {
@@ -23,10 +24,12 @@ export default function AutherCard() {
       });
 
       const bookcard = [1,2,3,4]
+
     return(
         <Grid>
-            <Box mt={1} sx={{ p: 'auto', border: 1 }}>
-                <Grid container spacing={4}  alignItems="center" justify="center">
+           <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}  >
+             <Box mt={1} sx={{ p: 'auto', border: 1 }}>
+             <Grid container spacing={4}  alignItems="center" justify="center">
                 <Grid item xs={2} >
                   <ThemeProvider theme={theme}>
                      <Typography sx={{p:3.5}} auther variant="auther" component="div">
@@ -46,6 +49,7 @@ export default function AutherCard() {
                 </Grid>
               </Grid>
              </Box>
+           </Card>
         </Grid>
     );
 }
