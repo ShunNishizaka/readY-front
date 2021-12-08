@@ -5,10 +5,7 @@ import Typography from "@mui/material/Typography";
 import CardActions from '@mui/material/CardActions';
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import CssBaseline from '@mui/material/CssBaseline';
-import Container from '@mui/material/Container';
-import Footer from  './footer'
-import ExperimentBookInfo from './experimentBookInfo';
+import ExperimentBookCard from './experimentBookCard';
 
 
 export default function AutherCard() {
@@ -43,8 +40,8 @@ export default function AutherCard() {
                     </Grid>
                 </Grid>
                 <Grid item sx={{m:1}} sm container spacing={2}>
-                {bookcard.map((card) => (
-                  <ExperimentBookInfo/>
+                  {bookcard.map((card) => (
+                    <ExperimentBookCard/>
                   ))}
                 </Grid>
               </Grid>
