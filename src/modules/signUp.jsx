@@ -10,19 +10,36 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import LP from './lp'
+import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import { create_user,auth } from '../request'
+
 
 const theme = createTheme();
 
+
+
+
 export default function SignInSide() {
-	const handleSubmit = (event) => {
+
+	const navigate = useNavigate();
+
+	async function handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		// eslint-disable-next-line no-console
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
+		await create_user(
+			data.get('email'),
+			data.get('password'),
+			data.get('name')
+		);
+
+		await auth(
+			data.get('email'),
+			data.get('password'),
+		);
+		
+		navigate("/mypage");
 	};
 
 	return (
@@ -44,7 +61,7 @@ export default function SignInSide() {
 							<LockOutlinedIcon />
 						</Avatar>
 						<Typography component="h1" variant="h5">
-						アカウント作成
+							アカウント作成
 						</Typography>
 						<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 							<TextField

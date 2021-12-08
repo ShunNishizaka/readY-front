@@ -3,6 +3,10 @@ import Header from '../modules/header'
 import Button from '@mui/material/Button'
 
 function MyPage() {
+	const token = localStorage.getItem("token");
+
+	
+
 	return (
 		<div className="MyPage">
 			<Header searchBox placeholder="書籍検索">
