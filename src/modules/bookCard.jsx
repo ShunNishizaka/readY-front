@@ -16,7 +16,7 @@ import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 
-export default function BookCard() {
+export default function BookCard(props) {
   const [readIcon, setReadIcon] = useState(false);
   const [purchasedIcon,setPurchasedIcon] = useState(false);
   const [favoriteIcon,setFavoriteIcon] = useState(false);
@@ -46,6 +46,7 @@ export default function BookCard() {
   }
 
 
+
   return (
     <Grid item xs={12} sm={6} md={2.4}>
       <Card
@@ -70,7 +71,7 @@ export default function BookCard() {
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h6" component="h2">
-            書籍名《オレオレ詐欺完全攻略》
+            {props.title}
           </Typography>
           <Typography>
             作者：俺

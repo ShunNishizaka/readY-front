@@ -7,11 +7,11 @@ const authorcards = [1, 2];
 
 export default function FavoriteAuthor() {
 
-    return(
-         <Grid>
-             {authorcards.map((card) => (
-              <AutherCard/>
+    return (
+        <Grid>
+            {authorcards.map((card) => (
+                <AutherCard />
             ))}
-         </Grid>
+        </Grid>
     )
 }
