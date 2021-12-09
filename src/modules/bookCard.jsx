@@ -14,12 +14,16 @@ import { useState } from 'react';
 import Card from '@mui/material/Card';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function BookCard(props) {
   const [readIcon, setReadIcon] = useState(false);
   const [purchasedIcon,setPurchasedIcon] = useState(false);
   const [favoriteIcon,setFavoriteIcon] = useState(false);
+
+  const navigate = useNavigate();
   
   const onClickRead = () => {
     if (readIcon === false) {
@@ -54,9 +58,8 @@ export default function BookCard(props) {
       >
         <CardMedia
           component="img"
-          image="https://source.unsplash.com/random"
+          image={props.bookInfo.image_url}
           alt="random"
-          height="200"
         />
         <CardActions>
           <IconButton aria-label="bookRead" onClick={onClickRead}>
@@ -70,14 +73,14 @@ export default function BookCard(props) {
           </IconButton>
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h6" component="h2">
-            {props.title}
+          <Typography gutterBottom variant="h6" component="h2" onClick={() => {navigate('/bookdetail',{state: {bookInfo: props.bookInfo}})}}>
+            {props.bookInfo.title}
           </Typography>
           <Typography>
-            作者：俺
+          著者: {props.bookInfo.author}
           </Typography>
           <Typography>
-            シリーズ：オレオレ詐欺
+          シリーズ: {props.bookInfo.series_name}
           </Typography>
         </CardContent>
         <CardActions>

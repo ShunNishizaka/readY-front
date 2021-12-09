@@ -1,15 +1,19 @@
 const BASEURL = "http://localhost:8000"
 
-async function postData(endpoint = '', data = {}) {
-    let url = BASEURL + endpoint
-	let response
+async function postData(endpoint = '', data = {}, headers = {}){
+    let url = BASEURL + endpoint;
+	let response;
+
+    const actual_headers = {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        ...headers
+    }
+
 	await fetch(url, {
 		method: 'POST',
 		cache: 'no-cache',
-		headers: {
-			'Content-Type': 'application/json',
-			'accept': 'application/json'
-		},
+		headers: actual_headers,
 		body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
 	})
 	.then(res => {
@@ -22,17 +26,21 @@ async function postData(endpoint = '', data = {}) {
 	return response;
 }
 
-async function getData(endpoint = '', data = {}) {
-    let url = BASEURL + endpoint
+async function getData(endpoint = '', data = {}, headers = {}) {
+    const query_params = new URLSearchParams(data)
+    let url = `${BASEURL}${endpoint}?${query_params}`
 	let response
+
+    const actual_headers = {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        ...headers
+    }
+
 	await fetch(url, {
 		method: 'GET',
 		cache: 'no-cache',
-		headers: {
-			'Content-Type': 'application/json',
-			'accept': 'application/json'
-		},
-		body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+		headers: actual_headers
 	})
 	.then(res => {
 		if(res.status >= 400){
@@ -58,5 +66,19 @@ export async function auth(email,password){
         password: password
     }).then(data => {
         localStorage.setItem("token", data.token);
+    })
+}
+
+export async function get_favo_books(token) {
+    await getData("/api/user/books", {}, {
+        Authorization: token
+    })
+}
+
+export async function get_search_books(token,keyword) {
+    return await getData("/api/book", {
+        keyword: keyword
+    }, {
+        Authorization: token
     })
 }
