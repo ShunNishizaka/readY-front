@@ -9,7 +9,6 @@ import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
 
 
-
 const Img = styled("img")({
   margin: "auto",
   display: "block",

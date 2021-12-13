@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
 import Header from '../modules/header.jsx'
-import Result from '../modules/result.jsx'
 import Button from '@mui/material/Button';
-
-
+import Result from '../modules/result.jsx'
 
 function SearchResult() {
 	return (
