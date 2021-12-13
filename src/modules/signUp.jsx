@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -10,7 +9,6 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import { create_user,auth } from '../request'
 

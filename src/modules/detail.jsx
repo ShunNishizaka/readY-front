@@ -7,7 +7,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import Button from "@mui/material/Button";
 import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
-
+import { useLocation } from 'react-router-dom';
 
 
 const Img = styled("img")({
@@ -32,6 +32,37 @@ const theme = createTheme({
 
 export default function Details() {
 
+  const [readIcon, setReadIcon] = useState(false);
+  const [purchasedIcon,setPurchasedIcon] = useState(false);
+  const [favoriteIcon,setFavoriteIcon] = useState(false);
+
+  const {state} = useLocation();
+  const {bookInfo} = state
+  
+  const onClickRead = () => {
+    if (readIcon === false) {
+      setReadIcon(true)
+    } else {
+      setReadIcon(false)
+    }
+  }
+
+  const onClickPurchased = () => {
+    if (purchasedIcon === false) {
+      setPurchasedIcon(true)
+    } else {
+      setPurchasedIcon(false)
+    }
+  }
+
+  const onClickFavorite = () => {
+    if (favoriteIcon === false) {
+      setFavoriteIcon(true)
+    } else {
+      setFavoriteIcon(false)
+    }
+  }
+
   return (
     <Paper
       variant="outlined"
@@ -40,7 +71,7 @@ export default function Details() {
       <Grid container spacing={4}>
         <Grid item>
           <ButtonBase sx={{ width: 200, height: 200 }}>
-            <Img alt="表紙" src="C:/Users/180581/Downloads/test.JPG" />
+            <Img alt="表紙" src={bookInfo.image_url} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -48,11 +79,11 @@ export default function Details() {
             <Grid item xs>
               <ThemeProvider theme={theme}>
                 <Typography booktitle variant="title" component="div">
-                  書籍タイトル
+                  {bookInfo.title}
                 </Typography>
                 <BookInfoIcons />
                 <Typography variant="info" component="div">
-                  書籍情報
+                  {bookInfo.description}
                 </Typography>
               </ThemeProvider>
             </Grid>
