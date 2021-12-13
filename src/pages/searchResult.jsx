@@ -8,7 +8,6 @@ import { useLocation } from 'react-router-dom';
 
 
 
-
 function SearchResult() {
 	const {state} = useLocation();
 	const {searchResult} = state
