@@ -13,6 +13,8 @@ const theme = createTheme();
 
 export default function Album(props) {
 
+
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -21,11 +23,16 @@ export default function Album(props) {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          <Grid container spacing={3}>
+          {props.bookInfos.books ? (
+            <Grid container spacing={3}>
             {props.bookInfos.books.map((info) => (
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
+          ):(
+            <h1>現在お気に入りに登録されている書籍はありません</h1>
+          )}
+          
         </Container>
       </main>
     </ThemeProvider>

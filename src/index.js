@@ -12,9 +12,9 @@ ReactDOM.render(
 		<Routes>
 			<Route path="/" element={<LandingPage />} />
 			<Route path="/login" element={<LoginPage />} />
-			<Route path="/mypage" element={<MyPage />} />
-			<Route path="/bookdetail" element={<BookDetail />} />
-			<Route path="/searchresult" element={<SearchResult />} />
+				<Route path="/mypage" element={<MyPage />} />
+				<Route path="/bookdetail" element={<BookDetail />} />
+				<Route path="/searchresult" element={<SearchResult />} />
 		</Routes>
 	</Router>,
 	document.getElementById('root')
