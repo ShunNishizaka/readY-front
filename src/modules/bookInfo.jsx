@@ -23,14 +23,14 @@ export default function Album(props) {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          {props.bookInfos.books ? (
+          {props.bookInfos.books ? ( //プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
             {props.bookInfos.books.map((info) => (
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
           ):(
-            <h1>現在お気に入りに登録されている書籍はありません</h1>
+            <h2>現在お気に入りに登録されている書籍はありません</h2>
           )}
           
         </Container>
