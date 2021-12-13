@@ -10,7 +10,7 @@ const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const theme = createTheme();
 
 
-export default function Album() {
+export default function Album(props) {
 
   return (
     <ThemeProvider theme={theme}>
@@ -19,11 +19,15 @@ export default function Album() {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          <Grid container spacing={3}>
-            {cards.map((card) => (
-              <SeriesCard title="シリーズ名《犯罪のやり方全集》"/>
-            ))}
-          </Grid>
+          {props.bookInfos.books ? (
+            <Grid container spacing={3}>
+              {props.bookInfos.books.map((info) => (
+                <SeriesCard bookInfos={info}/>
+              ))}
+            </Grid>
+          ):(
+            <h2>現在お気に入りに登録されているシリーズはありません</h2>
+          )}
         </Container>
       </main>
     </ThemeProvider>
