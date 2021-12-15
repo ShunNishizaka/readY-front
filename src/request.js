@@ -66,11 +66,25 @@ export async function auth(email,password){
         password: password
     }).then(data => {
         localStorage.setItem("token", data.token);
+        localStorage.setItem("refresh_token", data.refresh_token);
+        const exp = new Date(JSON.parse(window.atob(data.token.split(".")[1])).exp);
+        localStorage.setItem("exp",exp);
     })
 }
 
 export async function get_favo_books(token) {
-    await getData("/api/user/books", {}, {
+    return await getData("/api/user/books", {}, {
+        Authorization: token
+    })
+}
+
+export async function set_book_info(token,item_number,is_purchased,is_read,is_favorite){
+    await postData("/api/user/book",{
+        item_number: item_number,
+        is_purchased: is_purchased,
+        is_read: is_read,
+        is_favorite: is_favorite
+    },{
         Authorization: token
     })
 }
@@ -81,4 +95,23 @@ export async function get_search_books(token,keyword) {
     }, {
         Authorization: token
     })
+}
+
+export async function get_user_books(token,skip){
+    await getData("/api/user/books", {
+        skip: skip
+    },token)
+}
+
+export async function authentication_token(id,refresh_token){
+    if(localStorage.getItem("exp") > Date.now()){
+        return localStorage.getItem("token")
+    }else{
+        await postData("/api/refresh",{
+            id: id,
+            refresh_token: refresh_token
+        },{}).then(data => {
+            localStorage.setItem("token",data.token)
+        })
+    }
 }

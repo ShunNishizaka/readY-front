@@ -17,7 +17,6 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
 
 
-
 export default function BookCard(props) {
   const [readIcon, setReadIcon] = useState(false);
   const [purchasedIcon,setPurchasedIcon] = useState(false);
