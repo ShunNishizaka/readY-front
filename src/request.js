@@ -89,6 +89,21 @@ export async function set_book_info(token,item_number,is_purchased,is_read,is_fa
     })
 }
 
+export async function set_favo_series(token,series){
+    await postData("/api/user/series",{
+        series: series
+    },{
+        Authorization: token
+    })
+}
+
+export async function get_favo_series(token){
+    await getData("/api/user/series",{},{
+        Authorization: token
+    })
+}
+
+
 export async function get_search_books(token,keyword) {
     return await getData("/api/book", {
         keyword: keyword
