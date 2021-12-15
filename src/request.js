@@ -74,7 +74,7 @@ export async function auth(email,password){
 
 export async function get_favo_books(token) {
     return await getData("/api/user/books", {}, {
-        Authorization: token
+        Authorization: `Bearer ${token}`
     })
 }
 
@@ -85,7 +85,7 @@ export async function set_book_info(token,item_number,is_purchased,is_read,is_fa
         is_read: is_read,
         is_favorite: is_favorite
     },{
-        Authorization: token
+        Authorization: `Bearer ${token}`
     })
 }
 
@@ -105,10 +105,10 @@ export async function get_favo_series(token){
 
 
 export async function get_search_books(token,keyword) {
-    return await getData("/api/book", {
+    return await getData("/api/books", {
         keyword: keyword
     }, {
-        Authorization: token
+        Authorization: `Bearer ${token}`
     })
 }
 

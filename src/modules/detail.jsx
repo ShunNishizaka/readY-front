@@ -41,7 +41,7 @@ export default function Details() {
       <Grid container spacing={4}>
         <Grid item>
           <ButtonBase sx={{ width: 200, height: 200 }}>
-            <Img alt="表紙" src={bookInfo.image_url} />
+            <Img alt="表紙" src={bookInfo.book.image_url} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -49,11 +49,11 @@ export default function Details() {
             <Grid item xs>
               <ThemeProvider theme={theme}>
                 <Typography booktitle variant="title" component="div">
-                  {bookInfo.title}
+                  {bookInfo.book.title}
                 </Typography>
                 <BookInfoIcons />
                 <Typography variant="info" component="div">
-                  {bookInfo.description}
+                  {bookInfo.book.description}
                 </Typography>
               </ThemeProvider>
             </Grid>

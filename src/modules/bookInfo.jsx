@@ -18,14 +18,15 @@ export default function Album(props) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      {console.log(props.bookInfos)}
       <main>
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          {props.bookInfos.books ? ( //プロップスがundefinedならば下のh2を表示
+          {props.bookInfos ? ( //プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
-            {props.bookInfos.books.map((info) => (
+              {console.log(props.bookInfos)}
+            {props.bookInfos.map((info) => (
+              
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
