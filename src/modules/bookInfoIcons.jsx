@@ -15,7 +15,6 @@ export default function BookInfoIcons() {
     const [purchasedIcon,setPurchasedIcon] = useState(false);
     const [favoriteIcon,setFavoriteIcon] = useState(false);
 
-
     const onClickRead = () => {
       if (readIcon === false) {
         setReadIcon(true)
