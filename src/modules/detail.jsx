@@ -1,6 +1,5 @@
 import * as React from "react";
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
-import { useState } from 'react';
 import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -32,38 +31,8 @@ const theme = createTheme({
 
 
 export default function Details() {
-
-  const [readIcon, setReadIcon] = useState(false);
-  const [purchasedIcon,setPurchasedIcon] = useState(false);
-  const [favoriteIcon,setFavoriteIcon] = useState(false);
-
   const {state} = useLocation();
   const {bookInfo} = state
-  
-  const onClickRead = () => {
-    if (readIcon === false) {
-      setReadIcon(true)
-    } else {
-      setReadIcon(false)
-    }
-  }
-
-  const onClickPurchased = () => {
-    if (purchasedIcon === false) {
-      setPurchasedIcon(true)
-    } else {
-      setPurchasedIcon(false)
-    }
-  }
-
-  const onClickFavorite = () => {
-    if (favoriteIcon === false) {
-      setFavoriteIcon(true)
-    } else {
-      setFavoriteIcon(false)
-    }
-  }
-
   return (
     <Paper
       variant="outlined"
