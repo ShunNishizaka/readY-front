@@ -44,7 +44,7 @@ function a11yProps(index) {
 	};
 }
 
-export default function FullWidthTabs() {
+function FullWidthTabs() {
 	const theme = useTheme();
 	const [value, setValue] = React.useState(0);
 
@@ -71,7 +71,6 @@ export default function FullWidthTabs() {
 					<Tab label="お気に入り書籍" {...a11yProps(0)} />
 					<Tab label="お気に入り作者" {...a11yProps(1)} />
 					<Tab label="お気に入りシリーズ" {...a11yProps(2)} />
-					<Tab label="グループ一覧(未)" {...a11yProps(3)} />
 				</Tabs>
 			</AppBar>
 			<SwipeableViews
@@ -80,18 +79,17 @@ export default function FullWidthTabs() {
 				onChangeIndex={handleChangeIndex}
 			>
 				<TabPanel value={value} index={0} dir={theme.direction}>
-					<BookInfo></BookInfo>
+					<BookInfo bookInfos={[]}></BookInfo>
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
-					<FavoriteAuthor></FavoriteAuthor>
+					<FavoriteAuthor bookInfos={[]}></FavoriteAuthor>
 				</TabPanel>
 				<TabPanel value={value} index={2} dir={theme.direction}>
-					<SeriesInfo></SeriesInfo>
-				</TabPanel>
-				<TabPanel value={value} index={3} dir={theme.direction}>
-					Item Four
+					<SeriesInfo bookInfos={[]}></SeriesInfo>
 				</TabPanel>
 			</SwipeableViews>
 		</Box>
 	);
 }
+
+export default FullWidthTabs;

@@ -7,6 +7,9 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import { get_search_books } from '../request'
+import { useNavigate } from 'react-router-dom';
+
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -50,22 +53,42 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 
-function SearchBox(props) {
-  return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder={props.placeholder ? props.placeholder : 'Search...'}
-        inputProps={{ 'aria-label': 'search' }}
-      />
-    </Search>
-  )
-}
+
+
 
 
 export default function Header(props) {
+
+  const navigate = useNavigate();
+
+  function SearchBox(props) {
+    return (
+      <Search>
+        <SearchIconWrapper>
+          <SearchIcon />
+        </SearchIconWrapper>
+        <StyledInputBase
+          placeholder={props.placeholder ? props.placeholder : 'Search...'}
+          inputProps={{ 'aria-label': 'search' }}
+          name='value'
+          onKeyPress={(e)=>keyPress(e)}
+        />
+      </Search>
+    )
+  }
+
+  async function keyPress(e){
+    if(e.key === 'Enter'){
+      e.preventDefault();
+      console.log(e.target.value)
+      const result = await get_search_books(localStorage.getItem("token"),e.target.value)
+      console.log(result)
+      navigate("/searchresult", { state: {
+        searchResult: result
+      }});
+    }
+  }
+
   return (
     <AppBar position="static">
       <Container maxWidth="99%">

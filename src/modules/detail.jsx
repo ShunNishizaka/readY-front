@@ -7,7 +7,7 @@ import ButtonBase from "@mui/material/ButtonBase";
 import Button from "@mui/material/Button";
 import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
-
+import { useLocation } from 'react-router-dom';
 
 
 const Img = styled("img")({
@@ -31,7 +31,8 @@ const theme = createTheme({
 
 
 export default function Details() {
-
+  const {state} = useLocation();
+  const {bookInfo} = state
   return (
     <Paper
       variant="outlined"
@@ -40,7 +41,7 @@ export default function Details() {
       <Grid container spacing={4}>
         <Grid item>
           <ButtonBase sx={{ width: 200, height: 200 }}>
-            <Img alt="表紙" src="C:/Users/180581/Downloads/test.JPG" />
+            <Img alt="表紙" src={bookInfo.book.image_url} />
           </ButtonBase>
         </Grid>
         <Grid item xs={12} sm container>
@@ -48,11 +49,11 @@ export default function Details() {
             <Grid item xs>
               <ThemeProvider theme={theme}>
                 <Typography booktitle variant="title" component="div">
-                  書籍タイトル
+                  {bookInfo.book.title}
                 </Typography>
                 <BookInfoIcons />
                 <Typography variant="info" component="div">
-                  書籍情報
+                  {bookInfo.book.description}
                 </Typography>
               </ThemeProvider>
             </Grid>

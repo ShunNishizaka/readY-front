@@ -12,10 +12,10 @@ import BookInfoIcons from './bookInfoIcons';
 
 export default function ExperimentBookCard() {
 
-    return(
-      <Grid item xs={12} sm={6} md={2.8} >
-        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}        >
-         <CardMedia  component="img" image="https://source.unsplash.com/random" alt="random"  height="200"/>
+  return (
+    <Grid item xs={12} sm={6} md={2.8} >
+      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}        >
+        <CardMedia component="img" image="https://source.unsplash.com/random" alt="random" height="200" />
         <BookInfoIcons></BookInfoIcons>
         <CardContent sx={{ flexGrow: 0 }}>
           <Typography gutterBottom variant="h6" component="h2">
@@ -32,6 +32,6 @@ export default function ExperimentBookCard() {
             <Button variant="contained" >この書籍のグループを検索</Button>
         </CardActions>
       </Card>
-     </Grid>
-    );
+    </Grid>
+  );
 }
