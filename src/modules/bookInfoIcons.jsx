@@ -45,7 +45,7 @@ export default function BookInfoIcons() {
         <IconButton aria-label="bookPurchased" onClick={onClickPurchased}>
             {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
         </IconButton>
-        <IconButton aria-label="bookPurchased" onClick={onClickFavorite}>
+        <IconButton aria-label="bookFavo" onClick={onClickFavorite}>
             {favoriteIcon ? <FavoriteIcon/> : <FavoriteBorderIcon />}
         </IconButton>
       </Typography>
