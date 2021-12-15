@@ -33,7 +33,7 @@ export default function Album(props) {
           ):(
             <h2>現在お気に入りに登録されている書籍はありません</h2>
           )}
-          
+
         </Container>
       </main>
     </ThemeProvider>
