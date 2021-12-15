@@ -26,7 +26,7 @@ export default function Album(props) {
             <Grid container spacing={3}>
               {console.log(props.bookInfos)}
             {props.bookInfos.map((info) => (
-              
+
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
