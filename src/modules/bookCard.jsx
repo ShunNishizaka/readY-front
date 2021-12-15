@@ -15,6 +15,7 @@ import Card from '@mui/material/Card';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
+import { set_book_info } from '../request'
 
 
 export default function BookCard(props) {
@@ -57,7 +58,7 @@ export default function BookCard(props) {
       >
         <CardMedia
           component="img"
-          image={props.bookInfo.image_url}
+          image={props.bookInfo.book.image_url}
           alt="random"
         />
         <CardActions>
@@ -73,13 +74,13 @@ export default function BookCard(props) {
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>
           <Typography gutterBottom variant="h6" component="h2" onClick={() => {navigate('/bookdetail',{state: {bookInfo: props.bookInfo}})}}>
-            {props.bookInfo.title}
+            {props.bookInfo.book.title}
           </Typography>
           <Typography>
-          著者: {props.bookInfo.author}
+          著者: {props.bookInfo.book.author}
           </Typography>
           <Typography>
-          シリーズ: {props.bookInfo.series_name}
+          シリーズ: {props.bookInfo.book.series_name}
           </Typography>
         </CardContent>
         <CardActions>
