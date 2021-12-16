@@ -22,11 +22,10 @@ export default function Album(props) {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
+          {console.log(typeof props.bookinfos)}
           {props.bookInfos ? ( //プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
-              {console.log(props.bookInfos)}
             {props.bookInfos.map((info) => (
-              
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
