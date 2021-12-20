@@ -20,7 +20,6 @@ export default function Login() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		console.log(data)
 		await auth(data.get('email'),data.get('password'));
 		navigate("/mypage")
 	};

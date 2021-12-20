@@ -7,10 +7,13 @@ import BookInfo from '../modules/bookInfo.jsx'
 import { useLocation } from 'react-router-dom';
 import { get_search_books } from '../request'
 import { useAsyncRun, useAsyncTask} from "react-hooks-async"
+import React,{useEffect} from 'react';
+import { authentication_token } from '../request'
 
 const fetchBookSearchResult = async ({signal}, token, keyword) => {
 	return await get_search_books(token, keyword);
 }
+
 
 function SearchResult() {
 	const {state} = useLocation();
@@ -18,6 +21,11 @@ function SearchResult() {
 	const task = useAsyncTask(fetchBookSearchResult)
 	const { pending, error, result, abort } = task;
 	useAsyncRun(task, localStorage.getItem("token"), searchKeyword)
+
+	useEffect(()=>{
+		authentication_token(localStorage.getItem("refresh_token"))
+	});
+
 	return (
 		<div className="SearchResult">
 			<Header searchBox placeholder="書籍検索">

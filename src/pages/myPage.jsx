@@ -2,6 +2,8 @@ import Tabs from '../modules/tabs'
 import Header from '../modules/header'
 import Button from '@mui/material/Button'
 import { useNavigate } from "react-router-dom";
+import React,{useEffect} from 'react';
+import { authentication_token } from '../request'
 
 function MyPage() {
 	let navigate = useNavigate();
@@ -12,6 +14,9 @@ function MyPage() {
 		navigate("/");
 	}
 	
+	useEffect(()=>{
+		authentication_token(localStorage.getItem("refresh_token"))
+	});
 
 	return (
 		<div className="MyPage">

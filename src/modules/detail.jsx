@@ -51,7 +51,7 @@ export default function Details() {
                 <Typography booktitle variant="title" component="div">
                   {bookInfo.book.title}
                 </Typography>
-                <BookInfoIcons />
+                <BookInfoIcons bookInfo={bookInfo}/>
                 <Typography variant="info" component="div">
                   {bookInfo.book.description}
                 </Typography>

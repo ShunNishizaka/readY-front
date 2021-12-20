@@ -1,4 +1,4 @@
-const BASEURL = "http://localhost:8000"
+const BASEURL = "http://readybook.ddns.net:8000"
 
 async function postData(endpoint = '', data = {}, headers = {}){
     let url = BASEURL + endpoint;
@@ -14,7 +14,7 @@ async function postData(endpoint = '', data = {}, headers = {}){
 		method: 'POST',
 		cache: 'no-cache',
 		headers: actual_headers,
-		body: JSON.stringify(data) // 本文のデータ型は "Content-Type" ヘッダーと一致する必要があります
+		body: JSON.stringify(data)
 	})
 	.then(res => {
 		if(res.status >= 400){
@@ -114,7 +114,7 @@ export async function auth(email,password){
     },{}).then(data => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("refresh_token", data.refresh_token);
-        const exp = new Date(data.refresh_token_exp);
+        const exp = JSON.parse(window.atob(data.token.split(".")[1])).exp;
         localStorage.setItem("exp",exp);
     })
 }
@@ -182,14 +182,20 @@ export async function get_search_books(token,keyword) {
     })
 }
 
-export async function authentication_token(id,refresh_token){
-    if(localStorage.getItem("exp") > Date.now()){
+export async function authentication_token(refresh_token){
+    const id = JSON.parse(window.atob(localStorage.getItem("token").split(".")[1])).id;
+    console.log(id);
+
+    //JSON.parse(window.atob(id.split(".")[1])).id)
+    if(new Date(localStorage.getItem("exp")) > new Date(Date.now())){
         return localStorage.getItem("token")
     }else{
+        console.log("aaaaaa")
         await postData("/api/refresh",{
             id: id,
             refresh_token: refresh_token
         },{}).then(data => {
+            console.log(data)
             localStorage.setItem("token",data.token)
         })
     }
