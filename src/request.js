@@ -114,6 +114,7 @@ export async function auth(email,password){
     },{}).then(data => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("refresh_token", data.refresh_token);
+        localStorage.setItem("id",JSON.parse(window.atob(data.token.split(".")[1])).id)
         const exp = JSON.parse(window.atob(data.token.split(".")[1])).exp;
         localStorage.setItem("exp",exp);
     })
@@ -183,20 +184,16 @@ export async function get_search_books(token,keyword) {
 }
 
 export async function authentication_token(refresh_token){
-    const id = JSON.parse(window.atob(localStorage.getItem("token").split(".")[1])).id;
-    console.log(id);
-
-    //JSON.parse(window.atob(id.split(".")[1])).id)
     if(new Date(localStorage.getItem("exp")) > new Date(Date.now())){
         return localStorage.getItem("token")
     }else{
-        console.log("aaaaaa")
         await postData("/api/refresh",{
-            id: id,
+            user_id: localStorage.getItem("id"),
             refresh_token: refresh_token
         },{}).then(data => {
-            console.log(data)
             localStorage.setItem("token",data.token)
+            const exp = JSON.parse(window.atob(data.token.split(".")[1])).exp;
+            localStorage.setItem("exp",exp);
         })
     }
 }
