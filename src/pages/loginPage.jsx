@@ -10,18 +10,19 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Link as RLink} from "react-router-dom";
+import { auth } from '../request'
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme();
 
-export default function login() {
-	const handleSubmit = (event) => {
+export default function Login() {
+	let navigate = useNavigate();
+	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
-		console.log({
-			email: data.get('email'),
-			password: data.get('password'),
-		});
+		console.log(data)
+		await auth(data.get('email'),data.get('password'));
+		navigate("/mypage")
 	};
 
 	return (
@@ -70,7 +71,6 @@ export default function login() {
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
-								to="/mypage" component={RLink}
 							>
 								ログイン
 							</Button>

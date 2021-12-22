@@ -19,7 +19,6 @@ async function postData(endpoint = '', data = {}, headers = {}){
 	.then(res => {
 		if(res.status >= 400){
             console.log(res)
-			throw new Error("Bad response from server");
 		}
 		response = res.json();
 	});
@@ -45,11 +44,59 @@ async function getData(endpoint = '', data = {}, headers = {}) {
 	.then(res => {
 		if(res.status >= 400){
             console.log(res)
-			throw new Error("Bad response from server");
 		}
 		response = res.json();
 	});
 	return response;
+}
+
+async function deleteData(endpoint = '', data = {}, headers = {}) {
+    let url = BASEURL + endpoint;
+	let response;
+
+    const actual_headers = {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        ...headers
+    }
+
+	await fetch(url, {
+		method: 'DELETE',
+		cache: 'no-cache',
+		headers: actual_headers,
+        body: JSON.stringify(data)
+	})
+	.then(res => {
+		if(res.status >= 400){
+            console.log(res)
+		}
+		response = res.json();
+	});
+}
+
+
+async function patchData(endpoint = '', data = {}, headers = {}) {
+    let url = BASEURL + endpoint;
+	let response;
+
+    const actual_headers = {
+        'Content-Type': 'application/json',
+        'accept': 'application/json',
+        ...headers
+    }
+
+	await fetch(url, {
+		method: 'PATCH',
+		cache: 'no-cache',
+		headers: actual_headers,
+        body: JSON.stringify(data)
+	})
+	.then(res => {
+		if(res.status >= 400){
+            console.log(res)
+		}
+		response = res.json();
+	});
 }
 
 export async function create_user(email, password, name) {
@@ -64,22 +111,24 @@ export async function auth(email,password){
     await postData("/api/auth",{
         email: email,
         password: password
-    }).then(data => {
+    },{}).then(data => {
         localStorage.setItem("token", data.token);
         localStorage.setItem("refresh_token", data.refresh_token);
-        const exp = new Date(JSON.parse(window.atob(data.token.split(".")[1])).exp);
+        const exp = new Date(data.refresh_token_exp);
         localStorage.setItem("exp",exp);
     })
 }
 
-export async function get_favo_books(token) {
-    return await getData("/api/user/books", {}, {
+export async function get_user_books_info(token,skip = 0) {
+    return await getData("/api/users/books", {
+        skip: skip
+    }, {
         Authorization: `Bearer ${token}`
     })
 }
 
 export async function set_book_info(token,item_number,is_purchased,is_read,is_favorite){
-    await postData("/api/user/book",{
+    await postData("/api/users/books",{
         item_number: item_number,
         is_purchased: is_purchased,
         is_read: is_read,
@@ -88,6 +137,27 @@ export async function set_book_info(token,item_number,is_purchased,is_read,is_fa
         Authorization: `Bearer ${token}`
     })
 }
+
+export async function delete_book_info(token,item_number){
+    await deleteData("/api/users/books",{
+        item_number: item_number,
+    },{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+export async function patch_book_info(token,item_number,is_purchased,is_read,is_favorite){
+    await patchData("/api/users/books",{
+        item_number: item_number,
+        is_purchased: is_purchased,
+        is_read: is_read,
+        is_favorite: is_favorite
+    },{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+
 
 export async function set_favo_series(token,series){
     await postData("/api/user/series",{
@@ -110,12 +180,6 @@ export async function get_search_books(token,keyword) {
     }, {
         Authorization: `Bearer ${token}`
     })
-}
-
-export async function get_user_books(token,skip){
-    await getData("/api/user/books", {
-        skip: skip
-    },token)
 }
 
 export async function authentication_token(id,refresh_token){

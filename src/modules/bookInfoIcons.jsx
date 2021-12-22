@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import Typography from '@mui/material/Typography';
 import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import IconButton from '@mui/material/IconButton';
@@ -7,13 +8,12 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import { useState } from 'react';
+
 
 export default function BookInfoIcons() {
     const [readIcon, setReadIcon] = useState(false);
     const [purchasedIcon,setPurchasedIcon] = useState(false);
     const [favoriteIcon,setFavoriteIcon] = useState(false);
-
 
     const onClickRead = () => {
       if (readIcon === false) {
@@ -45,7 +45,7 @@ export default function BookInfoIcons() {
         <IconButton aria-label="bookPurchased" onClick={onClickPurchased}>
             {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
         </IconButton>
-        <IconButton aria-label="bookPurchased" onClick={onClickFavorite}>
+        <IconButton aria-label="bookFavo" onClick={onClickFavorite}>
             {favoriteIcon ? <FavoriteIcon/> : <FavoriteBorderIcon />}
         </IconButton>
       </Typography>

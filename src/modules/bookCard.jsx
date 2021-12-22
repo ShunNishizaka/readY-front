@@ -15,38 +15,56 @@ import Card from '@mui/material/Card';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
-import { set_book_info } from '../request'
+import { set_book_info, delete_book_info,patch_book_info } from '../request'
 
 
 export default function BookCard(props) {
-  const [readIcon, setReadIcon] = useState(false);
-  const [purchasedIcon,setPurchasedIcon] = useState(false);
-  const [favoriteIcon,setFavoriteIcon] = useState(false);
+  const [readIcon, setReadIcon] = useState(props.bookInfo.is_read);
+  const [purchasedIcon,setPurchasedIcon] = useState(props.bookInfo.is_purchased);
+  const [favoriteIcon,setFavoriteIcon] = useState(props.bookInfo.is_favorite);
 
   const navigate = useNavigate();
   
   const onClickRead = () => {
-    if (readIcon === false) {
-      setReadIcon(true)
+    if (readIcon && !purchasedIcon && !favoriteIcon){
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (favoriteIcon|| purchasedIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, !readIcon, favoriteIcon)
     } else {
-      setReadIcon(false)
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, !readIcon, favoriteIcon)
     }
+    setReadIcon(!readIcon)
   }
 
   const onClickPurchased = () => {
-    if (purchasedIcon === false) {
-      setPurchasedIcon(true)
+    if (!readIcon && purchasedIcon && !favoriteIcon){
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (readIcon || favoriteIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, props.bookInfo.is_read, favoriteIcon)
     } else {
-      setPurchasedIcon(false)
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, props.bookInfo.is_read, favoriteIcon)
     }
+    setPurchasedIcon(!purchasedIcon)
   }
 
   const onClickFavorite = () => {
-    if (favoriteIcon === false) {
-      setFavoriteIcon(true)
+    if (!readIcon && !purchasedIcon && favoriteIcon){
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (readIcon || purchasedIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, props.bookInfo.is_purchased, props.bookInfo.is_read, !favoriteIcon)
     } else {
-      setFavoriteIcon(false)
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, props.bookInfo.is_purchased, props.bookInfo.is_read, !favoriteIcon)
     }
+    setFavoriteIcon(!favoriteIcon)
   }
 
 
@@ -68,8 +86,8 @@ export default function BookCard(props) {
           <IconButton aria-label="bookPurchased" onClick={onClickPurchased}>
             {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
           </IconButton>
-          <IconButton aria-label="bookPurchased" onClick={onClickFavorite}>
-            {favoriteIcon ? <FavoriteBorderIcon/> : <FavoriteIcon />}
+          <IconButton aria-label="bookFavo" onClick={onClickFavorite}>
+            {favoriteIcon ? <FavoriteIcon /> : <FavoriteBorderIcon/> }
           </IconButton>
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>

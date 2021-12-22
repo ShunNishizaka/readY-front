@@ -81,10 +81,8 @@ export default function Header(props) {
     if(e.key === 'Enter'){
       e.preventDefault();
       console.log(e.target.value)
-      const result = await get_search_books(localStorage.getItem("token"),e.target.value)
-      console.log(result)
       navigate("/searchresult", { state: {
-        searchResult: result
+        searchKeyword: e.target.value
       }});
     }
   }

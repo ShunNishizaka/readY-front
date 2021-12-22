@@ -5,12 +5,19 @@ import Footer from "../modules/footer.jsx";
 import Paper from '@mui/material/Paper';
 import BookInfo from '../modules/bookInfo.jsx'
 import { useLocation } from 'react-router-dom';
+import { get_search_books } from '../request'
+import { useAsyncRun, useAsyncTask} from "react-hooks-async"
 
-
+const fetchBookSearchResult = async ({signal}, token, keyword) => {
+	return await get_search_books(token, keyword);
+}
 
 function SearchResult() {
 	const {state} = useLocation();
-	const {searchResult} = state
+	const {searchKeyword} = state
+	const task = useAsyncTask(fetchBookSearchResult)
+	const { pending, error, result, abort } = task;
+	useAsyncRun(task, localStorage.getItem("token"), searchKeyword)
 	return (
 		<div className="SearchResult">
 			<Header searchBox placeholder="書籍検索">
@@ -20,7 +27,7 @@ function SearchResult() {
 				variant="outlined"
 				elevation={0}
 				sx={{ p: 3, m: "auto", flexGrow: 1 }}>
-				<BookInfo bookInfos={searchResult}></BookInfo>
+				{pending ? "Loading..." : <BookInfo bookInfos={result}/>}
 			</Paper>
 			<Footer />
 		</div>

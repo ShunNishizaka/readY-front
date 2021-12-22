@@ -10,6 +10,9 @@ import Box from '@mui/material/Box';
 import BookInfo from './bookInfo';
 import FavoriteAuthor from './favoriteAuthor';
 import SeriesInfo from './seriesInfo';
+import { get_user_books_info } from '../request'
+import { useLocation } from 'react-router-dom';
+import { useAsyncRun, useAsyncTask} from "react-hooks-async"
 
 function TabPanel(props) {
 	const { children, value, index, ...other } = props;
@@ -44,9 +47,16 @@ function a11yProps(index) {
 	};
 }
 
+const fetchUsersBookResult = async ({signal}, token) => {
+	return await get_user_books_info(token)
+}
+
 function FullWidthTabs() {
 	const theme = useTheme();
 	const [value, setValue] = React.useState(0);
+	const task = useAsyncTask(fetchUsersBookResult)
+	const { pending, error, result, abort } = task;
+	useAsyncRun(task, localStorage.getItem("token"))
 
 	const handleChange = (event, newValue) => {
 		setValue(newValue);
@@ -79,7 +89,7 @@ function FullWidthTabs() {
 				onChangeIndex={handleChangeIndex}
 			>
 				<TabPanel value={value} index={0} dir={theme.direction}>
-					<BookInfo bookInfos={[]}></BookInfo>
+				{pending ? "Loading..." : <BookInfo bookInfos={result}/>}
 				</TabPanel>
 				<TabPanel value={value} index={1} dir={theme.direction}>
 					<FavoriteAuthor bookInfos={[]}></FavoriteAuthor>

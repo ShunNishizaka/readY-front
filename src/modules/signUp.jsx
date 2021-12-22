@@ -21,24 +21,76 @@ const theme = createTheme();
 export default function SignInSide() {
 
 	const navigate = useNavigate();
+	const [emailMessage, setEmailMessage] = React.useState(null);
+	const [passwordMessage, setPasswordMessage] = React.useState(null);
+	const [nameMessage, setNameMessage] = React.useState(null);
+	const [emailCheck, setEmailCheck] = React.useState(true);
+	const [passwordCheck, setPasswordCheck] = React.useState(true);
+	const [nameCheck, setNameCheck] = React.useState(true);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
-		await create_user(
-			data.get('email'),
-			data.get('password'),
-			data.get('name')
-		);
+		console.log('押しました!!')
 
-		await auth(
-			data.get('email'),
-			data.get('password'),
-		);
-		
-		navigate("/mypage");
+		if(!emailCheck&& !passwordCheck&& !nameCheck){
+			// eslint-disable-next-line no-console
+			console.log('行きました!!!')
+
+			await create_user(
+				data.get('email'),
+				data.get('password'),
+				data.get('name')
+			);
+
+			await auth(
+				data.get('email'),
+				data.get('password'),
+			);
+			navigate("/mypage");
+		}
 	};
+
+	function handleChange(event) {
+		const name = event.target.name;
+        const value = event.target.value;
+		switch(name) {
+			case "email":
+				setEmailMessage(emailValidation(value));
+				setEmailCheck(emailValidation(value));
+				return
+			case "password":
+				setPasswordMessage(passwordValidation(value));
+				setPasswordCheck(passwordValidation(value));
+				return
+			case "name":
+				setNameMessage(nameValidation(value));
+				setNameCheck(nameValidation(value));
+				return
+			default:
+				return
+		}
+	}
+
+	function emailValidation(value) {
+		if(!value) return 'メールアドレスを入力してください。' ;
+		const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+		if (!regex.test(value)) return '不正なメールアドレスです。';
+		return '';
+	};
+
+	function nameValidation(value){
+		if(!value) return 'ユーザ名を入力してください';
+		return '';
+	}
+
+	function passwordValidation(value){
+		if(!value) return 'パスワードを入力してください。';
+		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[a-zA-Z0-9.!-/:-@[-`{-~]{8,100}$/;
+		if (value.length <8) return '８文字以上必要です。'
+		if (!regex.test(value)) return '英大文字・英小文字・数字・記号それぞれ一文字含む必要があります';
+		return '';
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -63,6 +115,7 @@ export default function SignInSide() {
 						</Typography>
 						<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 							<TextField
+								error={emailMessage}
 								margin="normal"
 								required
 								fullWidth
@@ -71,8 +124,11 @@ export default function SignInSide() {
 								name="email"
 								autoComplete="email"
 								autoFocus
+								helperText={emailMessage}
+								onChange={handleChange}
 							/>
 							<TextField
+								error={nameMessage}
 								margin="normal"
 								required
 								fullWidth
@@ -81,8 +137,11 @@ export default function SignInSide() {
 								name="name"
 								autoComplete="name"
 								autoFocus
+								helperText={nameMessage}
+								onChange={handleChange}
 							/>
 							<TextField
+								error={passwordMessage}
 								margin="normal"
 								required
 								fullWidth
@@ -91,12 +150,15 @@ export default function SignInSide() {
 								type="password"
 								id="password"
 								autoComplete="current-password"
+								helperText={passwordMessage}
+								onChange={handleChange}
 							/>
 							<Button
 								type="submit"
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
+								disabled ={emailCheck || passwordCheck || nameCheck}
 							>
 								作成
 							</Button>
