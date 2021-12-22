@@ -21,7 +21,6 @@ export default function Album(props) {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          {console.log(props.bookInfos)}
           {props.bookInfos.length ? ( //if プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
             {props.bookInfos.map((info) => (

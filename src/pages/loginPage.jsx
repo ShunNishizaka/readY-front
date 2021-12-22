@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,19 +9,28 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Link as RLink} from "react-router-dom";
-import { auth } from '../request'
+import { auth,authentication_token } from '../request'
 import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
 
 const theme = createTheme();
 
 export default function Login() {
 	let navigate = useNavigate();
+
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		await auth(data.get('email'),data.get('password'));
-		navigate("/mypage")
+		navigate("/mypage");
 	};
+
+	useEffect(() => {
+		if(localStorage.getItem("refresh_token") !== null){
+			authentication_token(localStorage.getItem("refresh_token"));
+			navigate("/mypage");
+		}
+	});
 
 	return (
 		<ThemeProvider theme={theme}>

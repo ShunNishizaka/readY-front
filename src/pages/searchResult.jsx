@@ -9,6 +9,7 @@ import { get_search_books } from '../request'
 import { useAsyncRun, useAsyncTask} from "react-hooks-async"
 import React,{useEffect} from 'react';
 import { authentication_token } from '../request'
+import { useNavigate, Navigate } from "react-router-dom";
 
 const fetchBookSearchResult = async ({signal}, token, keyword) => {
 	return await get_search_books(token, keyword);
@@ -16,15 +17,25 @@ const fetchBookSearchResult = async ({signal}, token, keyword) => {
 
 
 function SearchResult() {
-	const {state} = useLocation();
-	const {searchKeyword} = state
-	const task = useAsyncTask(fetchBookSearchResult)
-	const { pending, error, result, abort } = task;
-	useAsyncRun(task, localStorage.getItem("token"), searchKeyword)
-
+	let navigate = useNavigate();
 	useEffect(()=>{
-		authentication_token(localStorage.getItem("refresh_token"))
+		if(localStorage.getItem("refresh_token") === null){
+			navigate("/")
+		}
 	});
+
+	let {state} = useLocation();
+
+	if(state === null){
+		state = {searchKeyword: ""}
+	}//ログインしていないときにこのページにアクセスした場合にルートに戻るために必要
+
+	const {searchKeyword} = state;
+	const task = useAsyncTask(fetchBookSearchResult);
+	const { pending, error, result, abort } = task;
+	useAsyncRun(task, localStorage.getItem("token"), searchKeyword);
+
+	
 
 	return (
 		<div className="SearchResult">

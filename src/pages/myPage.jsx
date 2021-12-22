@@ -9,13 +9,15 @@ function MyPage() {
 	let navigate = useNavigate();
 	const token = localStorage.getItem("token");
 	const onClickEvent = () =>{
-		localStorage.setItem("token","")
-		localStorage.setItem("refresh_token","")
+		localStorage.removeItem("token")
+		localStorage.removeItem("refresh_token")
 		navigate("/");
 	}
 	
 	useEffect(()=>{
-		authentication_token(localStorage.getItem("refresh_token"))
+		if(localStorage.getItem("refresh_token") === null){
+			navigate("/");
+		}
 	});
 
 	return (
