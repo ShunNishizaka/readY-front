@@ -15,21 +15,21 @@ import Card from '@mui/material/Card';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useNavigate } from 'react-router-dom';
-import { set_book_info, delete_book_info,patch_book_info } from '../request'
+import { set_book_info, delete_book_info, patch_book_info } from '../request'
 
 
 export default function BookCard(props) {
   const [readIcon, setReadIcon] = useState(props.bookInfo.is_read);
-  const [purchasedIcon,setPurchasedIcon] = useState(props.bookInfo.is_purchased);
-  const [favoriteIcon,setFavoriteIcon] = useState(props.bookInfo.is_favorite);
+  const [purchasedIcon, setPurchasedIcon] = useState(props.bookInfo.is_purchased);
+  const [favoriteIcon, setFavoriteIcon] = useState(props.bookInfo.is_favorite);
 
   const navigate = useNavigate();
-  
+
   const onClickRead = () => {
-    if (readIcon && !purchasedIcon && !favoriteIcon){
+    if (readIcon && !purchasedIcon && !favoriteIcon) {
       //delete
       delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
-    } else if (favoriteIcon|| purchasedIcon) {
+    } else if (favoriteIcon || purchasedIcon) {
       //patch
       patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, !readIcon, favoriteIcon)
     } else {
@@ -40,29 +40,29 @@ export default function BookCard(props) {
   }
 
   const onClickPurchased = () => {
-    if (!readIcon && purchasedIcon && !favoriteIcon){
+    if (!readIcon && purchasedIcon && !favoriteIcon) {
       //delete
       delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
     } else if (readIcon || favoriteIcon) {
       //patch
-      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, props.bookInfo.is_read, favoriteIcon)
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, readIcon, favoriteIcon)
     } else {
       //post
-      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, props.bookInfo.is_read, favoriteIcon)
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, readIcon, favoriteIcon)
     }
     setPurchasedIcon(!purchasedIcon)
   }
 
   const onClickFavorite = () => {
-    if (!readIcon && !purchasedIcon && favoriteIcon){
+    if (!readIcon && !purchasedIcon && favoriteIcon) {
       //delete
       delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
     } else if (readIcon || purchasedIcon) {
       //patch
-      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, props.bookInfo.is_purchased, props.bookInfo.is_read, !favoriteIcon)
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, readIcon, !favoriteIcon)
     } else {
       //post
-      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, props.bookInfo.is_purchased, props.bookInfo.is_read, !favoriteIcon)
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, readIcon, !favoriteIcon)
     }
     setFavoriteIcon(!favoriteIcon)
   }
@@ -87,18 +87,18 @@ export default function BookCard(props) {
             {purchasedIcon ? <MonetizationOnIcon /> : <AttachMoneyIcon />}
           </IconButton>
           <IconButton aria-label="bookFavo" onClick={onClickFavorite}>
-            {favoriteIcon ? <FavoriteIcon /> : <FavoriteBorderIcon/> }
+            {favoriteIcon ? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h6" component="h2" onClick={() => {navigate('/bookdetail',{state: {bookInfo: props.bookInfo}})}}>
+          <Typography gutterBottom variant="h6" component={"div"} onClick={() => { navigate('/bookdetail', { state: { bookInfo: props.bookInfo } }) }}>
             {props.bookInfo.book.title}
           </Typography>
-          <Typography>
-          著者: {props.bookInfo.book.author}
+          <Typography component={"div"}>
+            著者: {props.bookInfo.book.author}
           </Typography>
-          <Typography>
-          シリーズ: {props.bookInfo.book.series_name}
+          <Typography component={"div"}>
+            シリーズ: {props.bookInfo.book.series_name}
           </Typography>
         </CardContent>
         <CardActions>

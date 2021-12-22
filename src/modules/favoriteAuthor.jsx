@@ -16,6 +16,7 @@ export default function FavoriteAuthor(props) {
                     {props.bookInfos.book ? (
                         <Grid>
                             {props.bookInfos.books.map((info) => ( //bookInfoになっています。
+                            
                                 <AuthorCard favoriteAuthors={info} />
                             ))}
                         </Grid>

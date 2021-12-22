@@ -2,16 +2,23 @@ import Tabs from '../modules/tabs'
 import Header from '../modules/header'
 import Button from '@mui/material/Button'
 import { useNavigate } from "react-router-dom";
+import React,{useEffect} from 'react';
+import { authentication_token } from '../request'
 
 function MyPage() {
 	let navigate = useNavigate();
 	const token = localStorage.getItem("token");
 	const onClickEvent = () =>{
-		localStorage.setItem("token","")
-		localStorage.setItem("refresh_token","")
+		localStorage.removeItem("token")
+		localStorage.removeItem("refresh_token")
 		navigate("/");
 	}
 	
+	useEffect(()=>{
+		if(localStorage.getItem("refresh_token") === null){
+			navigate("/");
+		}
+	});
 
 	return (
 		<div className="MyPage">
