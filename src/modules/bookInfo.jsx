@@ -6,7 +6,6 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import BookCard from './bookCard'
 
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9,10];
 
 const theme = createTheme();
 
@@ -22,14 +21,13 @@ export default function Album(props) {
         {/* Hero unit */}
         <Container sx={{ p: 0 }} maxWidth="xl">
           {/* End hero unit */}
-          {console.log(typeof props.bookinfos)}
-          {props.bookInfos ? ( //プロップスがundefinedならば下のh2を表示
+          {props.bookInfos.length ? ( //if プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
             {props.bookInfos.map((info) => (
               <BookCard bookInfo={info}/>
             ))}
           </Grid>
-          ):(
+          ):(//else
             <h2>現在お気に入りに登録されている書籍はありません</h2>
           )}
 

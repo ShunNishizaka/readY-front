@@ -8,34 +8,58 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { useNavigate } from 'react-router-dom';
+import { set_book_info, delete_book_info, patch_book_info } from '../request'
 
 
-export default function BookInfoIcons() {
-    const [readIcon, setReadIcon] = useState(false);
-    const [purchasedIcon,setPurchasedIcon] = useState(false);
-    const [favoriteIcon,setFavoriteIcon] = useState(false);
+export default function BookInfoIcons(props) {
+  const [readIcon, setReadIcon] = useState(props.bookInfo.is_read);
+  const [purchasedIcon, setPurchasedIcon] = useState(props.bookInfo.is_purchased);
+  const [favoriteIcon, setFavoriteIcon] = useState(props.bookInfo.is_favorite);
 
-    const onClickRead = () => {
-      if (readIcon === false) {
-        setReadIcon(true)
-      } else {
-        setReadIcon(false)
-      }
+  const navigate = useNavigate();
+
+  const onClickRead = () => {
+    if (readIcon && !purchasedIcon && !favoriteIcon) {
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (favoriteIcon || purchasedIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, !readIcon, favoriteIcon)
+    } else {
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, !readIcon, favoriteIcon)
     }
-    const onClickPurchased = () => {
-      if (purchasedIcon === false) {
-        setPurchasedIcon(true)
-      } else {
-        setPurchasedIcon(false)
-      }
+    setReadIcon(!readIcon)
+  }
+
+  const onClickPurchased = () => {
+    if (!readIcon && purchasedIcon && !favoriteIcon) {
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (readIcon || favoriteIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, readIcon, favoriteIcon)
+    } else {
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, !purchasedIcon, readIcon, favoriteIcon)
     }
-    const onClickFavorite = () => {
-      if (favoriteIcon === false) {
-        setFavoriteIcon(true)
-      } else {
-        setFavoriteIcon(false)
-      }
+    setPurchasedIcon(!purchasedIcon)
+  }
+
+  const onClickFavorite = () => {
+    if (!readIcon && !purchasedIcon && favoriteIcon) {
+      //delete
+      delete_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number)
+    } else if (readIcon || purchasedIcon) {
+      //patch
+      patch_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, readIcon, !favoriteIcon)
+    } else {
+      //post
+      set_book_info(localStorage.getItem("token"), props.bookInfo.book.item_number, purchasedIcon, readIcon, !favoriteIcon)
     }
+    setFavoriteIcon(!favoriteIcon)
+  }
 
     return(
       <Typography>

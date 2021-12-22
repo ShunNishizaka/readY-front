@@ -4,8 +4,20 @@ import Header from '../modules/header.jsx'
 import SignUp from '../modules/signUp'
 import LP from '../modules/lp'
 import Grid from '@mui/material/Grid';
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { authentication_token } from '../request'
 
 function LandingPage() {
+	let navigate = useNavigate();
+
+	useEffect(() => {
+		if(localStorage.getItem("refresh_token") !== null){
+			authentication_token(localStorage.getItem("refresh_token"));
+			navigate("/mypage");
+		}
+	});
+
 	return (
 		<div className="App">
 			<Header>
