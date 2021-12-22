@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
-import { useForm } from 'react-hook-form';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
@@ -25,56 +24,56 @@ export default function SignInSide() {
 	const [emailMessage, setEmailMessage] = React.useState(null);
 	const [passwordMessage, setPasswordMessage] = React.useState(null);
 	const [nameMessage, setNameMessage] = React.useState(null);
-	const [canClick, setCanClick] = React.useState(false);
+	const [emailCheck, setEmailCheck] = React.useState(true);
+	const [passwordCheck, setPasswordCheck] = React.useState(true);
+	const [nameCheck, setNameCheck] = React.useState(true);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
 		console.log('押しました!!')
 
-		if(emailMessage == ''&& passwordMessage == ''&& nameMessage == ''){
+		if(!emailCheck&& !passwordCheck&& !nameCheck){
 			// eslint-disable-next-line no-console
-		console.log('行きました!!!')
+			console.log('行きました!!!')
 
-		await create_user(
-			data.get('email'),
-			data.get('password'),
-			data.get('name')
-		);
+			await create_user(
+				data.get('email'),
+				data.get('password'),
+				data.get('name')
+			);
 
-		await auth(
-			data.get('email'),
-			data.get('password'),
-		);
-
-		navigate("/mypage");
+			await auth(
+				data.get('email'),
+				data.get('password'),
+			);
+			navigate("/mypage");
 		}
 	};
 
 	function handleChange(event) {
 		const name = event.target.name;
         const value = event.target.value;
-		if(emailMessage == ''){
-			setCanClick(true);
-		}
 		switch(name) {
 			case "email":
 				setEmailMessage(emailValidation(value));
+				setEmailCheck(emailValidation(value));
 				return
 			case "password":
 				setPasswordMessage(passwordValidation(value));
+				setPasswordCheck(passwordValidation(value));
 				return
 			case "name":
 				setNameMessage(nameValidation(value));
+				setNameCheck(nameValidation(value));
 				return
 			default:
 				return
 		}
 	}
 
-
 	function emailValidation(value) {
-		if(!value) return 'メールアドレスを入力してください。';
+		if(!value) return 'メールアドレスを入力してください。' ;
 		const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
 		if (!regex.test(value)) return '不正なメールアドレスです。';
 		return '';
@@ -87,12 +86,11 @@ export default function SignInSide() {
 
 	function passwordValidation(value){
 		if(!value) return 'パスワードを入力してください。';
-		const regex = /^(?=.*[A-Z])(?=.*[!-/:-@[-`{-~])[a-zA-Z0-9.!-/:-@[-`{-~]{8,100}$/;
+		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[a-zA-Z0-9.!-/:-@[-`{-~]{8,100}$/;
 		if (value.length <8) return '８文字以上必要です。'
 		if (!regex.test(value)) return '英大文字・英小文字・数字・記号それぞれ一文字含む必要があります';
 		return '';
 	}
-
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -160,7 +158,7 @@ export default function SignInSide() {
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
-								disabled ={!canClick}
+								disabled ={emailCheck || passwordCheck || nameCheck}
 							>
 								作成
 							</Button>
