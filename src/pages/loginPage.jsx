@@ -16,10 +16,17 @@ import React, { useState, useEffect } from 'react';
 const theme = createTheme();
 
 export default function Login() {
+	const [emailMessage, setEmailMessage] = React.useState('');
+	const [passwordMessage, setPasswordMessage] = React.useState('');
+	const [emailCheck, setEmailCheck] = React.useState(true);
+	const [passwordCheck, setPasswordCheck] = React.useState(true);
+	const [loading, setloading] = React.useState(false);
+
 	let navigate = useNavigate();
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
+		setloading(true)
 		const data = new FormData(event.currentTarget);
 		await auth(data.get('email'),data.get('password'));
 		navigate("/mypage");
@@ -31,6 +38,40 @@ export default function Login() {
 			navigate("/mypage");
 		}
 	});
+
+	function handleChange(event) {
+		const name = event.target.name;
+        const value = event.target.value;
+		let validated;
+		switch(name) {
+			case "email":
+				validated = emailValidation(value)
+				setEmailMessage(validated);
+				setEmailCheck(validated);
+				return
+			case "password":
+				validated = passwordValidation(value)
+				setPasswordMessage(validated);
+				setPasswordCheck(validated);
+				return
+			default:
+				return
+		}
+	}
+
+	function emailValidation(value) {
+		if(!value) return 'メールアドレスを入力してください。' ;
+		const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+		if (!regex.test(value)) return '不正なメールアドレスです。';
+		return '';
+	};
+
+	function passwordValidation(value){
+		if(!value) return 'パスワードを入力してください。';
+		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[a-zA-Z0-9.!-/:-@[-`{-~]{8,100}$/;
+		if (value.length <8 || !regex.test(value)) return '不正なパスワードです。';
+		return '';
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -61,7 +102,10 @@ export default function Login() {
 								label="Email Address"
 								name="email"
 								autoComplete="email"
+								error={emailMessage}
+								helperText={emailMessage}
 								autoFocus
+								onChange={handleChange}
 							/>
 							<TextField
 								margin="normal"
@@ -72,12 +116,16 @@ export default function Login() {
 								type="password"
 								id="password"
 								autoComplete="current-password"
+								error={passwordMessage}
+								helperText={passwordMessage}
+								onChange={handleChange}
 							/>
 							<Button
 								type="submit"
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
+								disabled ={emailCheck || passwordCheck || loading}
 							>
 								ログイン
 							</Button>

@@ -5,12 +5,17 @@ import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import InputAdornment from '@mui/material/InputAdornment';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import IconButton from '@mui/material/IconButton';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { create_user,auth } from '../request'
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 
 const theme = createTheme();
@@ -21,24 +26,93 @@ const theme = createTheme();
 export default function SignInSide() {
 
 	const navigate = useNavigate();
+	const [emailMessage, setEmailMessage] = React.useState('');
+	const [passwordMessage, setPasswordMessage] = React.useState('');
+	const [nameMessage, setNameMessage] = React.useState('');
+	const [emailCheck, setEmailCheck] = React.useState(true);
+	const [passwordCheck, setPasswordCheck] = React.useState(true);
+	const [nameCheck, setNameCheck] = React.useState(true);
+	const [loading, setloading] = React.useState(false);
+	const [showPassword, setShowPassword] = React.useState(false);
 
 	async function handleSubmit(event) {
 		event.preventDefault();
+		setloading(true)
 		const data = new FormData(event.currentTarget);
-		// eslint-disable-next-line no-console
-		await create_user(
-			data.get('email'),
-			data.get('password'),
-			data.get('name')
-		);
+		console.log('押しました!!')
 
-		await auth(
-			data.get('email'),
-			data.get('password'),
-		);
-		
-		navigate("/mypage");
+		if(!emailCheck&& !passwordCheck&& !nameCheck){
+
+			// eslint-disable-next-line no-console
+			console.log('行きました!!!')
+
+			await create_user(
+				data.get('email'),
+				data.get('password'),
+				data.get('name')
+			);
+
+			await auth(
+				data.get('email'),
+				data.get('password'),
+			);
+			navigate("/mypage");
+		}
 	};
+
+	const handleClickShowPassword = () => {
+		setShowPassword({
+		  showPassword: !showPassword.showPassword,
+		});
+	};
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault();
+	};
+
+	function handleChange(event) {
+		const name = event.target.name;
+        const value = event.target.value;
+		let validated;
+		switch(name) {
+			case "email":
+				validated = emailValidation(value)
+				setEmailMessage(validated);
+				setEmailCheck(validated);
+				return
+			case "password":
+				validated = passwordValidation(value)
+				setPasswordMessage(validated);
+				setPasswordCheck(validated);
+				return
+			case "name":
+				validated = nameValidation(value)
+				setNameMessage(validated);
+				setNameCheck(validated);
+				return
+			default:
+				return
+		}
+	}
+
+	function emailValidation(value) {
+		if(!value) return 'メールアドレスを入力してください。' ;
+		const regex = /^[a-zA-Z0-9_.+-]+@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/;
+		if (!regex.test(value)) return '不正なメールアドレスです。';
+		return '';
+	};
+
+	function nameValidation(value){
+		if(!value) return 'ユーザ名を入力してください';
+		return '';
+	}
+
+	function passwordValidation(value){
+		if(!value) return 'パスワードを入力してください。';
+		const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[a-zA-Z0-9.!-/:-@[-`{-~]{8,100}$/;
+		if (value.length <8) return '８文字以上必要です。';
+		if (!regex.test(value)) return '英大文字・英小文字・数字・記号それぞれ一文字含む必要があります';
+		return '';
+	}
 
 	return (
 		<ThemeProvider theme={theme}>
@@ -61,7 +135,8 @@ export default function SignInSide() {
 						<Typography component="h1" variant="h5">
 							アカウント作成
 						</Typography>
-						<Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
+						<Box component="form" noValidate onSubmit={handleSubmit} sx={{mt: 1, width: 1  }}>
+							{/*<Typography variant="body1">サインアップエラーメッセージ予定地</Typography>*/}
 							<TextField
 								margin="normal"
 								required
@@ -71,6 +146,9 @@ export default function SignInSide() {
 								name="email"
 								autoComplete="email"
 								autoFocus
+								error={emailMessage}
+								helperText={emailMessage}
+								onChange={handleChange}
 							/>
 							<TextField
 								margin="normal"
@@ -81,6 +159,9 @@ export default function SignInSide() {
 								name="name"
 								autoComplete="name"
 								autoFocus
+								error={nameMessage}
+								helperText={nameMessage}
+								onChange={handleChange}
 							/>
 							<TextField
 								margin="normal"
@@ -88,15 +169,33 @@ export default function SignInSide() {
 								fullWidth
 								name="password"
 								label="Password"
-								type="password"
+								type={showPassword.showPassword ? 'text' : 'password'}
 								id="password"
 								autoComplete="current-password"
+								error={passwordMessage}
+								helperText={passwordMessage}
+								onChange={handleChange}
+								InputProps={{
+									endAdornment:(
+										<InputAdornment position="end">
+											<IconButton
+											aria-label="toggle password visibility"
+											onClick={handleClickShowPassword}
+											onMouseDown={handleMouseDownPassword}
+											edge="end"
+										  >
+											{showPassword.showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
 							/>
 							<Button
 								type="submit"
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
+								disabled ={emailCheck || passwordCheck || nameCheck || loading}
 							>
 								作成
 							</Button>
