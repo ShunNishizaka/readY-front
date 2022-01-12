@@ -22,7 +22,6 @@ export default function BookCard(props) {
   const [readIcon, setReadIcon] = useState(props.bookInfo.is_read);
   const [purchasedIcon, setPurchasedIcon] = useState(props.bookInfo.is_purchased);
   const [favoriteIcon, setFavoriteIcon] = useState(props.bookInfo.is_favorite);
-
   const navigate = useNavigate();
 
   const onClickRead = () => {
@@ -91,19 +90,19 @@ export default function BookCard(props) {
           </IconButton>
         </CardActions>
         <CardContent sx={{ flexGrow: 1 }}>
-          <Typography gutterBottom variant="h6" component={"div"} onClick={() => { navigate('/bookdetail', { state: { bookInfo: props.bookInfo } }) }}>
+          <Typography class="cardTitle" gutterBottom variant="h6" component={"div"} onClick={() => { navigate('/bookdetail', { state: { bookInfo: props.bookInfo } }) }}>
             {props.bookInfo.book.title}
           </Typography>
-          <Typography component={"div"}>
+          <Typography component={"div"} variant="div">
             著者: {props.bookInfo.book.author}
           </Typography>
-          <Typography component={"div"}>
+          <Typography component={"div"} variant="div">
             シリーズ: {props.bookInfo.book.series_name}
           </Typography>
         </CardContent>
-        <CardActions>
+        {/* <CardActions>
           <Button variant="contained">この書籍のグループを検索</Button>
-        </CardActions>
+        </CardActions> */}
       </Card>
     </Grid>
   )

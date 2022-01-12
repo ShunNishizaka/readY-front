@@ -15,7 +15,9 @@ function MyPage() {
 	}
 	
 	useEffect(()=>{
-		if(localStorage.getItem("refresh_token") === null){
+		if(localStorage.getItem("refresh_token") === null || localStorage.getItem("refresh_token") === 'undefined'){
+			localStorage.removeItem("refresh_token");
+			localStorage.removeItem("token");
 			navigate("/");
 		}
 	});
@@ -23,7 +25,7 @@ function MyPage() {
 	return (
 		<div className="MyPage">
 			<Header searchBox placeholder="書籍検索">
-				<Button color="inherit" size="large" sx={{ mr:2 }}>部屋を探す</Button>
+				{/* <Button color="inherit" size="large" sx={{ mr:2 }}>部屋を探す</Button> */}
 				<Button color="inherit" size="large">設定</Button>
 				<Button color="inherit" size="large" sx={{ ml:2 }} onClick={onClickEvent}>ログアウト</Button>
 			</Header>

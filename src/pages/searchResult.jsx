@@ -8,8 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { get_search_books } from '../request'
 import { useAsyncRun, useAsyncTask} from "react-hooks-async"
 import React,{useEffect} from 'react';
-import { authentication_token } from '../request'
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate} from "react-router-dom";
 
 const fetchBookSearchResult = async ({signal}, token, keyword) => {
 	return await get_search_books(token, keyword);

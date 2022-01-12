@@ -12,7 +12,7 @@ function LandingPage() {
 	let navigate = useNavigate();
 
 	useEffect(() => {
-		if(localStorage.getItem("refresh_token") !== null){
+		if(localStorage.getItem("refresh_token") !== null && localStorage.getItem("refresh_token") !== 'undefined'){
 			authentication_token(localStorage.getItem("refresh_token"));
 			navigate("/mypage");
 		}

@@ -9,7 +9,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
 import { Link as RLink} from "react-router-dom";
-import { auth,authentication_token } from '../request'
+import { Auth,authentication_token } from '../request'
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from 'react';
 
@@ -21,12 +21,12 @@ export default function Login() {
 	const handleSubmit = async (event) => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
-		await auth(data.get('email'),data.get('password'));
+		await Auth(data.get('email'),data.get('password'));
 		navigate("/mypage");
 	};
 
 	useEffect(() => {
-		if(localStorage.getItem("refresh_token") !== null){
+		if(localStorage.getItem("refresh_token") !== null && localStorage.getItem("refresh_token") !== 'undefined'){
 			authentication_token(localStorage.getItem("refresh_token"));
 			navigate("/mypage");
 		}

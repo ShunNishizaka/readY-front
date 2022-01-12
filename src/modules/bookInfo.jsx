@@ -23,8 +23,8 @@ export default function Album(props) {
           {/* End hero unit */}
           {props.bookInfos.length ? ( //if プロップスがundefinedならば下のh2を表示
             <Grid container spacing={3}>
-            {props.bookInfos.map((info) => (
-              <BookCard bookInfo={info}/>
+            {props.bookInfos.map((info,index) => (
+              <BookCard bookInfo={info} key={index}/>
             ))}
           </Grid>
           ):(//else
