@@ -5,13 +5,13 @@ import LineLinkage from '../modules/lineLinkage.jsx';
 
 const theme = createTheme();
 
-function SettingPage(){
+function SettingPage() {
 
 
-    return(
-        <ThemeProvider theme={theme}>
-			<LineLinkage/>
-		</ThemeProvider>
-    );
+  return (
+    <ThemeProvider theme={theme}>
+      <LineLinkage />
+    </ThemeProvider>
+  );
 }
 export default SettingPage;

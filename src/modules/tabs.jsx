@@ -11,7 +11,6 @@ import BookInfo from './bookInfo';
 import FavoriteAuthor from './favoriteAuthor';
 import SeriesInfo from './seriesInfo';
 import { get_user_books_info } from '../request'
-import { useLocation } from 'react-router-dom';
 import { useAsyncRun, useAsyncTask} from "react-hooks-async"
 
 function TabPanel(props) {

@@ -67,11 +67,9 @@ export default function Details() {
                 </ThemeProvider>
               </Grid>
               <Grid item>
-                {/* <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Button variant="contained">
-                    この書籍の輪読グループを見る
-                  </Button>
-                </Typography> */}
+                <Button variant="contained">
+                  この書籍の作者をお気に入り登録する
+                </Button>
               </Grid>
             </Grid>
           </Grid>

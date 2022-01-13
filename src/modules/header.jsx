@@ -78,11 +78,13 @@ export default function Header(props) {
 
   async function keyPress(e){
     if(e.key === 'Enter'){
-      e.preventDefault();
-      console.log(e.target.value)
-      navigate("/searchresult", { state: {
-        searchKeyword: e.target.value
-      }});
+      let serchKeyword = ( e.target.value || '' ).replace( /^\s+|\s+$/g, '' ); 
+      if(serchKeyword != ""){
+        e.preventDefault();
+        navigate("/searchresult", { state: {
+          searchKeyword: serchKeyword
+        }});
+      }
     }
   }
 

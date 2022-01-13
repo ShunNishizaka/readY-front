@@ -14,7 +14,6 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useNavigate } from 'react-router-dom';
 import { create_user,Auth } from '../request'
-import { create_user,auth } from '../request'
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -63,7 +62,7 @@ export default function SignInSide() {
 
 	const handleClickShowPassword = () => {
 		setShowPassword({
-		  showPassword: !showPassword.showPassword,
+		showPassword: !showPassword.showPassword,
 		});
 	};
 	const handleMouseDownPassword = (event) => {
