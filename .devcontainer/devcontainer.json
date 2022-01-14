@@ -14,10 +14,18 @@
 	"settings": {
 		"[javascriptreact]": {
 			"editor.tabSize": 2,
+			"editor.codeActionsOnSave": {
+				"source.fixAll": true,
+				"source.organizeImports": true
+			}
 		},
 		"[javascript]": {
 			"editor.maxTokenizationLineLength": 2500,
-			"editor.tabSize": 2
+			"editor.tabSize": 2,
+			"editor.codeActionsOnSave": {
+				"source.fixAll": true,
+				"source.organizeImports": true
+			}
 		}
 	},
 
