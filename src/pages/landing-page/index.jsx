@@ -3,7 +3,6 @@ import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import InputAdornment from "@mui/material/InputAdornment";
@@ -47,7 +46,6 @@ export default function LandingPage() {
         </Container>
       </AppBar>
       <Grid container square sx={{ height: "93%" }}>
-        <CssBaseline />
         <Grid item lg={8} sm={12} sx={{display: "flex", alignItems: "center"}}>
           <Paper square elevation={0} sx={{
             p: 2,
