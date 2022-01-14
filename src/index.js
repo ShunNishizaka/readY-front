@@ -1,10 +1,10 @@
-import CssBaseline from "@mui/material/CssBaseline";
-import React from 'react';
-import ReactDOM from 'react-dom';
+import CssBaseline from '@mui/material/CssBaseline'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 
-import LandingPage from "./pages/landing-page";
+import LandingPage from './pages/landing-page'
 
 ReactDOM.render(
 	<Router>
@@ -14,4 +14,4 @@ ReactDOM.render(
 		</Routes>
 	</Router>,
 	document.getElementById('root')
-);
+)
