@@ -1,5 +1,14 @@
+html {
+    height: 100%;
+}
+
 body{
     background-image: url(pexels-dom-j-45717.jpg);
+    height: 100%
+}
+
+#root{
+    height: 100%
 }
 
 
