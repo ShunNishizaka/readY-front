@@ -15,7 +15,7 @@ export default function LoginPage () {
   return (
     <FlexBox>
       <Header />
-      <Grid container sx={{ height: '100vh', flex: 1 }}>
+      <Grid container sx={{ height: 'auto', flex: 1 }}>
         <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
           <Box sx={{
             py: 8,
