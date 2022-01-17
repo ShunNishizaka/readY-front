@@ -1,14 +1,16 @@
+import SearchIcon from '@mui/icons-material/Search'
 import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import SwipeableViews from 'react-swipeable-views'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-
-import { useState, React } from 'react'
-
+import { React, useState } from 'react'
+import SwipeableViews from 'react-swipeable-views'
+import Search from '../../components/atoms/Search'
+import SearchIconWrapper from '../../components/atoms/SearchIconWrapper'
+import StyledInputBase from '../../components/atoms/StyledInputBase'
 import TabPanel from '../../components/atoms/TabPanel'
 
 function genProps (index) {
@@ -26,8 +28,13 @@ export default function MyPage () {
   }
 
   return (
-    <Box sx={{ height: '100%' }}>
-      <AppBar position="static">
+    <Box sx={{
+      // height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh'
+    }}>
+      <AppBar position="static" id="header">
         <Container maxWidth="99%">
           <Toolbar disableGutters>
             <Typography
@@ -38,10 +45,19 @@ export default function MyPage () {
             >
               Read-Y
             </Typography>
+            <Search>
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+              <StyledInputBase
+                placeholder="書籍を検索..."
+                inputProps={{ 'aria-label': 'search' }}
+              />
+            </Search>
           </Toolbar>
         </Container>
       </AppBar>
-      <Box sx={{ height: '93%', bgcolor: 'background.paper', width: 1 }}>
+      <Box sx={{ height: '100%', bgcolor: 'background.paper', width: 1, flex: 1 }}>
         <AppBar position="static" elevation={0}>
           <Tabs
             value={value}
