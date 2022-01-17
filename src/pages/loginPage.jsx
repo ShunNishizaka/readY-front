@@ -8,9 +8,12 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Paper from '@mui/material/Paper';
-import { Link as RLink} from "react-router-dom";
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import { Auth,authentication_token } from '../request'
 import { useNavigate } from "react-router-dom";
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
 import React, { useState, useEffect } from 'react';
 
 const theme = createTheme();
@@ -21,6 +24,7 @@ export default function Login() {
 	const [emailCheck, setEmailCheck] = React.useState(true);
 	const [passwordCheck, setPasswordCheck] = React.useState(true);
 	const [loading, setloading] = React.useState(false);
+	const [showPassword, setShowPassword] = React.useState(false);
 
 	let navigate = useNavigate();
 
@@ -29,8 +33,18 @@ export default function Login() {
 		setloading(true)
 		const data = new FormData(event.currentTarget);
 		await Auth(data.get('email'),data.get('password'));
+		
 		navigate("/mypage");
 	};
+	const handleClickShowPassword = () => {
+		setShowPassword({
+		  showPassword: !showPassword.showPassword,
+		});
+	};
+	const handleMouseDownPassword = (event) => {
+		event.preventDefault();
+	};
+
 
 	useEffect(() => {
 		if(localStorage.getItem("refresh_token") !== null && localStorage.getItem("refresh_token") !== 'undefined'){
@@ -113,19 +127,33 @@ export default function Login() {
 								fullWidth
 								name="password"
 								label="Password"
-								type="password"
+								type={showPassword.showPassword ? 'text' : 'password'}
 								id="password"
 								autoComplete="current-password"
 								error={passwordMessage}
 								helperText={passwordMessage}
 								onChange={handleChange}
+								InputProps={{
+									endAdornment:(
+										<InputAdornment position="end">
+											<IconButton
+											aria-label="toggle password visibility"
+											onClick={handleClickShowPassword}
+											onMouseDown={handleMouseDownPassword}
+											edge="end"
+										  >
+											{showPassword.showPassword ? <VisibilityOff /> : <Visibility />}
+											</IconButton>
+										</InputAdornment>
+									),
+								}}
 							/>
 							<Button
 								type="submit"
 								fullWidth
 								variant="contained"
 								sx={{ mt: 3, mb: 2 }}
-								disabled ={emailCheck || passwordCheck || loading}
+								disabled ={emailCheck || passwordCheck}
 							>
 								ログイン
 							</Button>
