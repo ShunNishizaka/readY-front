@@ -7,15 +7,13 @@ import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import React from 'react'
+
+import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
 
 export default function LoginPage () {
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh'
-    }}>
+    <FlexBox>
       <Header />
       <Grid container sx={{ height: '100vh', flex: 1 }}>
         <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
@@ -63,6 +61,6 @@ export default function LoginPage () {
           </Box>
         </Grid>
       </Grid>
-    </Box>
+    </FlexBox>
   )
 }

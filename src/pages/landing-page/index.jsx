@@ -13,6 +13,7 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 
 import { useState, React } from 'react'
 
+import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
 
 export default function LandingPage () {
@@ -28,7 +29,7 @@ export default function LandingPage () {
   }
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <FlexBox>
       <Header/>
       <Grid container square sx={{ Height: '100vh', flex: 1 }}>
         <Grid item lg={8} sm={12} sx={{ display: 'flex', alignItems: 'center' }}>
@@ -48,7 +49,7 @@ export default function LandingPage () {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            height: '100%'
+            height: 'auto'
           }}>
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
@@ -113,6 +114,6 @@ export default function LandingPage () {
           </Box>
         </Grid>
       </Grid>
-    </Box>
+    </FlexBox>
   )
 }

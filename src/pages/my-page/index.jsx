@@ -2,8 +2,11 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
-import { React, useState } from 'react'
 import SwipeableViews from 'react-swipeable-views'
+
+import { React, useState } from 'react'
+
+import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
 import TabPanel from '../../components/atoms/TabPanel'
 
@@ -22,11 +25,7 @@ export default function MyPage () {
   }
 
   return (
-    <Box sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh'
-    }}>
+    <FlexBox>
       <Header searchBox placeholder="書籍を検索..."/>
       <Box sx={{ height: '100%', bgcolor: 'background.paper', width: 1, flex: 1 }}>
         <AppBar position="static" elevation={0}>
@@ -56,6 +55,6 @@ export default function MyPage () {
           </TabPanel>
         </SwipeableViews>
       </Box>
-    </Box>
+    </FlexBox>
   )
 }
