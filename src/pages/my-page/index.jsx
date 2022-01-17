@@ -29,7 +29,6 @@ export default function MyPage () {
 
   return (
     <Box sx={{
-      // height: '100%',
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh'
