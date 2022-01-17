@@ -27,7 +27,7 @@ export default function MyPage () {
   return (
     <FlexBox>
       <Header searchBox placeholder="書籍を検索..."/>
-      <Box sx={{ height: '100%', bgcolor: 'background.paper', width: 1, flex: 1 }}>
+      <Box sx={{ height: 'auto', bgcolor: 'background.paper', width: 1, flex: 1 }}>
         <AppBar position="static" elevation={0}>
           <Tabs
             value={value}
