@@ -1,15 +1,13 @@
-import AppBar from '@mui/material/AppBar'
 import Avatar from '@mui/material/Avatar'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
-import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
-import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import React from 'react'
+import Header from '../../components/blocks/Header'
 
 export default function LoginPage () {
   return (
@@ -18,20 +16,7 @@ export default function LoginPage () {
       flexDirection: 'column',
       minHeight: '100vh'
     }}>
-      <AppBar position="static">
-        <Container maxWidth="99%">
-          <Toolbar disableGutters>
-            <Typography
-              variant="h4"
-              noWrap
-              component="div"
-              sx={{ mr: 2, display: { xs: 'none', md: 'flex' }, flexGrow: 0 }}
-            >
-              Read-Y
-            </Typography>
-          </Toolbar>
-        </Container>
-      </AppBar>
+      <Header />
       <Grid container sx={{ height: '100vh', flex: 1 }}>
         <Grid item xs={12} sm={12} md={12} component={Paper} elevation={6} square>
           <Box sx={{
