@@ -16,6 +16,7 @@ import { useState, React } from 'react'
 
 import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
+import * as Requests from '../../utils/request'
 
 export default function LandingPage () {
   const [showPassword, setShowPassword] = useState(false)
@@ -27,6 +28,18 @@ export default function LandingPage () {
   }
   const handleMouseDownPassword = (event) => {
     event.preventDefault()
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault()
+    const data = new FormData(event.currentTarget)
+
+    const a = await Requests.createUser(
+      data.get('email'),
+      data.get('password'),
+      data.get('name')
+    )
+    console.log(a)
   }
 
   return (
@@ -60,7 +73,7 @@ export default function LandingPage () {
             <Typography component="h1" variant="h5">
               アカウント作成
             </Typography>
-            <Box component="form" sx={{ mt: 1, width: 1 }}>
+            <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1, width: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -101,9 +114,8 @@ export default function LandingPage () {
                 fullWidth
                 id="name"
                 label="表示名"
-                name="id"
+                name="name"
                 autoComplete="name"
-                autoFocus
               />
               <Button
                 type="submit"
