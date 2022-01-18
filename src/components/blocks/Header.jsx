@@ -7,7 +7,7 @@ import React from 'react'
 import SearchBox from './SearchBox'
 
 export default function Header (props) {
-  const { searchBox, ...others } = props
+  const { searchBox, children, ...others } = props
   return (
     <AppBar position="static" id="header">
       <Container maxWidth="99%">
@@ -21,6 +21,10 @@ export default function Header (props) {
             Read-Y
           </Typography>
           {searchBox && <SearchBox {...others}/>}
+          <div sx={{ flexGrow: 1 }}/>
+          <div sx={{ flexGrow: 0 }}>
+            {children}
+          </div>
         </Toolbar>
       </Container>
     </AppBar>
@@ -28,5 +32,9 @@ export default function Header (props) {
 }
 
 Header.propTypes = {
-  searchBox: PropTypes.bool
+  searchBox: PropTypes.bool,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 }
