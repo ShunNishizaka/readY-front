@@ -67,6 +67,15 @@ async function _patch (endpoint, { headers = {}, data = {} }) {
   })
 }
 
+export async function auth (email, password) {
+  return await _post('/api/auth', {
+    data: {
+      email: email,
+      password: password
+    }
+  })
+}
+
 export async function refreshToken (userId, refreshToken) {
   return await _post('/api/refresh', {
     data: {

@@ -4,7 +4,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
@@ -19,6 +19,7 @@ import Header from '../../components/blocks/Header'
 import * as Requests from '../../utils/request'
 
 export default function LandingPage () {
+  const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
 
   const handleClickShowPassword = () => {
@@ -34,12 +35,24 @@ export default function LandingPage () {
     event.preventDefault()
     const data = new FormData(event.currentTarget)
 
-    const a = await Requests.createUser(
+    await Requests.createUser(
       data.get('email'),
       data.get('password'),
       data.get('name')
     )
-    console.log(a)
+
+    const result = await Requests.auth(
+      data.get('email'),
+      data.get('password')
+    )
+
+    await result.text().then(text => {
+      const data = JSON.parse(text)
+      localStorage.setItem('token', data.token)
+      localStorage.setItem('refresh_token', data.refresh_token)
+    })
+
+    navigate('/mypage')
   }
 
   return (
