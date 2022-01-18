@@ -65,10 +65,10 @@ export default function LandingPage () {
           <Paper square elevation={0} sx={{
             p: 2,
             backgroundColor: '#ffffffCF',
-            width: '100%'
+            flex: 1
           }}>
             <h1>Are you ReadY?</h1>
-            <h3>Read-Yはあなたの読書生活をより快適にするための<br />書籍管理サービスです。</h3>
+            <h3>Read-Yはあなたの読書生活をより快適にするための書籍管理サービスです。</h3>
           </Paper>
         </Grid>
         <Grid item lg={4} sm={12} component={Paper} square>
