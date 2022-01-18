@@ -1,4 +1,5 @@
 import AppBar from '@mui/material/AppBar'
+import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import PropTypes from 'prop-types'
 import Toolbar from '@mui/material/Toolbar'
@@ -21,8 +22,8 @@ export default function Header (props) {
             Read-Y
           </Typography>
           {searchBox && <SearchBox {...others}/>}
-          <div sx={{ flexGrow: 1 }}/>
-          <div sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 1 }}/>
+          <div>
             {children}
           </div>
         </Toolbar>
