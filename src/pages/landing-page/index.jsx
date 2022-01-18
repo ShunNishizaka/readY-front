@@ -4,6 +4,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
+import { Link } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
@@ -30,8 +31,9 @@ export default function LandingPage () {
 
   return (
     <FlexBox>
-      <Header/>
-      <Grid container square sx={{ Height: '100vh', flex: 1 }}>
+      <Header>
+        <Button color="inherit" size="large" to="/login" component={Link}>ログイン</Button>
+      </Header>
         <Grid item lg={8} sm={12} sx={{ display: 'flex', alignItems: 'center' }}>
           <Paper square elevation={0} sx={{
             p: 2,
