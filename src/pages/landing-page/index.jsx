@@ -34,6 +34,7 @@ export default function LandingPage () {
       <Header>
         <Button color="inherit" size="large" to="/login" component={Link}>ログイン</Button>
       </Header>
+      <Grid container sx={{ Height: '100vh', flex: 1 }}>
         <Grid item lg={8} sm={12} sx={{ display: 'flex', alignItems: 'center' }}>
           <Paper square elevation={0} sx={{
             p: 2,
