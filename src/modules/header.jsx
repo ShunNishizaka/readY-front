@@ -7,7 +7,6 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { get_search_books } from '../request'
 import { useNavigate } from 'react-router-dom';
 
 
@@ -79,11 +78,13 @@ export default function Header(props) {
 
   async function keyPress(e){
     if(e.key === 'Enter'){
-      e.preventDefault();
-      console.log(e.target.value)
-      navigate("/searchresult", { state: {
-        searchKeyword: e.target.value
-      }});
+      let serchKeyword = ( e.target.value || '' ).replace( /^\s+|\s+$/g, '' ); 
+      if(serchKeyword != ""){
+        e.preventDefault();
+        navigate("/searchresult", { state: {
+          searchKeyword: serchKeyword
+        }});
+      }
     }
   }
 

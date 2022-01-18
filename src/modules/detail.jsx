@@ -61,17 +61,15 @@ export default function Details() {
                     {bookInfo.book.title}
                   </Typography>
                   <BookInfoIcons bookInfo={bookInfo}/>
-                  <Typography variant="info" component="div" >
+                  <Typography class="description" variant="info" component="div" >
                     {bookInfo.book.description}
                   </Typography>
                 </ThemeProvider>
               </Grid>
               <Grid item>
-                <Typography sx={{ cursor: "pointer" }} variant="body2">
-                  <Button variant="contained">
-                    この書籍の輪読グループを見る
-                  </Button>
-                </Typography>
+                <Button variant="contained">
+                  この書籍の作者をお気に入り登録する
+                </Button>
               </Grid>
             </Grid>
           </Grid>

@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const BASEURL = "http://readybook.ddns.net:8000"
 
 async function postData(endpoint = '', data = {}, headers = {}){
@@ -107,7 +109,7 @@ export async function create_user(email, password, name) {
     })
 }
 
-export async function auth(email,password){
+export async function Auth(email,password){
     await postData("/api/auth",{
         email: email,
         password: password
@@ -117,6 +119,8 @@ export async function auth(email,password){
         localStorage.setItem("id",JSON.parse(window.atob(data.token.split(".")[1])).id)
         const exp = JSON.parse(window.atob(data.token.split(".")[1])).exp;
         localStorage.setItem("exp",exp);
+    }).catch(e => {
+        window.location.href='./login'
     })
 }
 
