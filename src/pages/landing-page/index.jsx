@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import { Link, useNavigate } from 'react-router-dom'
+import LoadingButton from '@mui/lab/LoadingButton'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import Paper from '@mui/material/Paper'
 import TextField from '@mui/material/TextField'
@@ -21,6 +22,7 @@ import * as Requests from '../../utils/request'
 export default function LandingPage () {
   const navigate = useNavigate()
   const [showPassword, setShowPassword] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const handleClickShowPassword = () => {
     setShowPassword({
@@ -33,6 +35,7 @@ export default function LandingPage () {
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    setLoading(true)
     const data = new FormData(event.currentTarget)
 
     await Requests.createUser(
@@ -129,14 +132,15 @@ export default function LandingPage () {
                 name="name"
                 autoComplete="name"
               />
-              <Button
+              <LoadingButton
                 type="submit"
                 fullWidth
-                variant="contained"
+                variant={isLoading ? 'outlined' : 'contained'}
                 sx={{ mt: 3, mb: 2 }}
+                loading={isLoading}
               >
                 作成
-              </Button>
+              </LoadingButton>
             </Box>
           </Box>
         </Grid>
