@@ -28,7 +28,7 @@ async function _fetch (method, endpoint, { data = {}, queryParams = {}, auth = f
   } else {
     request = {
       ...request,
-    body: JSON.stringify(data)
+      body: JSON.stringify(data)
     }
   }
 
@@ -119,4 +119,10 @@ export async function editUser () {
 
 export async function deleteUser () {
   await _delete('/api/users')
+}
+
+export async function getRegisteredBooks () {
+  return await _get('/api/users/books', {
+    auth: true
+  })
 }

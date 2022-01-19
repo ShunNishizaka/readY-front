@@ -4,10 +4,11 @@ import Tab from '@mui/material/Tab'
 import Tabs from '@mui/material/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 
-import { React, useState } from 'react'
+import { React, useState, useEffect } from 'react'
 
 import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
+import * as Requests from '../../utils/request'
 import TabPanel from '../../components/atoms/TabPanel'
 
 function genProps (index) {
@@ -20,9 +21,21 @@ function genProps (index) {
 export default function MyPage () {
   const [value, setValue] = useState(0)
 
+  const [registeredBookPending, setRegisteredBookPending] = useState(true)
+  const [registeredBooks, setRegisteredBooks] = useState([])
+
+  const getUserRegisteredBook = async () => {
+    setRegisteredBooks(await Requests.getRegisteredBooks())
+    setRegisteredBookPending(false)
+  }
+
   const tabChanged = (event, newValue) => {
     setValue(newValue)
   }
+
+  useEffect(() => {
+    getUserRegisteredBook()
+  })
 
   return (
     <FlexBox>
@@ -45,7 +58,7 @@ export default function MyPage () {
           index={value}
         >
           <TabPanel value={value} index={0}>
-            Hello No1
+            { registeredBookPending ? 'Loading...' : registeredBooks }
           </TabPanel>
           <TabPanel value={value} index={1}>
             Hello No2
