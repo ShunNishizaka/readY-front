@@ -121,8 +121,92 @@ export async function deleteUser () {
   await _delete('/api/users')
 }
 
-export async function getRegisteredBooks () {
+export async function getRegisteredBookInfos (skip = 0) {
   return await _get('/api/users/books', {
+    queryParams: {
+      skip: skip
+    },
+    auth: true
+  })
+}
+
+export async function registerBookInfo (itemNumber, isPurchased, isRead, isFavorite) {
+  return await _post('/api/users/books', {
+    data: {
+      item_number: itemNumber,
+      is_purchased: isPurchased,
+      is_read: isRead,
+      is_favorite: isFavorite
+    },
+    auth: true
+  })
+}
+
+export async function deleteBookInfo (itemNumber) {
+  return await _delete('/api/users/books', {
+    data: {
+      item_number: itemNumber
+    },
+    auth: true
+  })
+}
+
+export async function editBookInfo (itemNumber, isPurchased, isRead, isFavorite) {
+  return await _patch('/api/users/books', {
+    data: {
+      item_number: itemNumber,
+      is_purchased: isPurchased,
+      is_read: isRead,
+      is_favorite: isFavorite
+    },
+    auth: true
+  })
+}
+
+export async function registerFavoriteSeries (seriesName) {
+  return await _post('/api/users/series', {
+    data: {
+      series: seriesName
+    },
+    auth: true
+  })
+}
+
+export async function getFavoriteSeries () {
+  return await _get('/api/users/series', {
+    auth: true
+  })
+}
+
+export async function deleteFavoriteSeries (seriesName) {
+  return await _delete('/api/users/series', {
+    data: {
+      series: seriesName
+    },
+    auth: true
+  })
+}
+
+export async function registerFavoriteAuthor (authorName) {
+  return await _post('/api/users/authors', {
+    data: {
+      author: authorName
+    },
+    auth: true
+  })
+}
+
+export async function getFavoriteAuthor () {
+  return await _get('/api/users/authors', {
+    auth: true
+  })
+}
+
+export async function deleteFavoriteAuthot (authorName) {
+  return await _delete('/api/users/authors', {
+    data: {
+      author: authorName
+    },
     auth: true
   })
 }
