@@ -46,11 +46,10 @@ export default function LandingPage () {
       data.get('password')
     )
 
-    await result.text().then(text => {
-      const data = JSON.parse(text)
-      localStorage.setItem('token', data.token)
-      localStorage.setItem('refresh_token', data.refresh_token)
-    })
+    console.log(result)
+
+    localStorage.setItem('token', result.token)
+    localStorage.setItem('refresh_token', result.refresh_token)
 
     navigate('/mypage')
   }

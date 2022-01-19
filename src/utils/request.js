@@ -18,11 +18,11 @@ async function _fetch (method, endpoint, { headers = {}, data = {}, queryParams 
     body: JSON.stringify(data)
   })
 
-  if (res.status !== 401) return res
+  if (res.status !== 401) return res.json()
 
   const token = localStorage.getItem('token')
 
-  if (!token) return res
+  if (!token) return res.json()
 
   const payload = decodeToken(token)
   const refresh = localStorage.getItem('refresh_token')
@@ -86,7 +86,7 @@ export async function refreshToken (userId, refreshToken) {
 }
 
 export async function createUser (email, password, name) {
-  await _post('/api/users', {
+  return await _post('/api/users', {
     data: {
       email: email,
       password: password,
