@@ -5,6 +5,7 @@ import Tabs from '@mui/material/Tabs'
 import SwipeableViews from 'react-swipeable-views'
 
 import { React, useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import FlexBox from '../../components/atoms/FlexBox'
 import Header from '../../components/blocks/Header'
@@ -19,6 +20,7 @@ function genProps (index) {
 }
 
 export default function MyPage () {
+  const navigate = useNavigate()
   const [value, setValue] = useState(0)
 
   const [registeredBookPending, setRegisteredBookPending] = useState(true)
@@ -33,13 +35,25 @@ export default function MyPage () {
     setValue(newValue)
   }
 
+  const keyPressed = async (event) => {
+    if (event.key !== 'Enter') return
+    event.preventDefault()
+    const searchKeyword = (event.target.value || '').replace(/^\s+|\s+$/g, '')
+    if (searchKeyword === '') return
+    navigate('/searchresult', {
+      state: {
+        searchKeyword: searchKeyword
+      }
+    })
+  }
+
   useEffect(() => {
     getUserRegisteredBook()
-  })
+  }, [registeredBookPending])
 
   return (
     <FlexBox>
-      <Header searchBox placeholder="書籍を検索..."/>
+      <Header searchBox placeholder="書籍を検索..." keyPress={keyPressed}/>
       <Box sx={{ height: 'auto', bgcolor: 'background.paper', width: 1, flex: 1 }}>
         <AppBar position="static" elevation={0}>
           <Tabs
