@@ -126,3 +126,13 @@ export async function getRegisteredBooks () {
     auth: true
   })
 }
+
+export async function search (keyword, page = 1) {
+  return await _get('/api/books', {
+    queryParams: {
+      keyword: keyword,
+      page: page
+    },
+    auth: true
+  })
+}
