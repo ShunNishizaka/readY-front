@@ -2,21 +2,37 @@ import { decodeToken } from './tokenDecoder'
 
 const BASEURL = 'http://readybook.ddns.net:8000'
 
-async function _fetch (method, endpoint, { headers = {}, data = {}, queryParams = {} }) {
-  const url = `${BASEURL}${endpoint}?${new URLSearchParams(queryParams)}`
+const Methods = {
+  GET: 'GET',
+  POST: 'POST',
+  PATCH: 'PATCH',
+  DELETE: 'DELETE'
+}
 
+async function _fetch (method, endpoint, { data = {}, queryParams = {}, auth = false }) {
   const actualHeaders = {
     'Content-Type': 'application/json',
     accept: 'application/json',
-    ...headers
+    Authorization: auth ? `Bearer ${localStorage.getItem('token')}` : ''
   }
 
-  const res = await fetch(url, {
+  let url = `${BASEURL}${endpoint}?${new URLSearchParams(queryParams)}`
+  let request = {
     method: method,
     cache: 'no-cache',
-    headers: actualHeaders,
+    headers: actualHeaders
+  }
+
+  if (method === Methods.GET) {
+    url = `${url}?${new URLSearchParams(queryParams)}`
+  } else {
+    request = {
+      ...request,
     body: JSON.stringify(data)
-  })
+    }
+  }
+
+  const res = await fetch(url, request)
 
   if (res.status !== 401) return res.json()
 
@@ -27,43 +43,41 @@ async function _fetch (method, endpoint, { headers = {}, data = {}, queryParams 
   const payload = decodeToken(token)
   const refresh = localStorage.getItem('refresh_token')
 
-  const a = await refreshToken(payload.id, refresh)
+  const tokenInfo = await refreshToken(payload.id, refresh)
+  localStorage.setItem('token', tokenInfo.token)
 
   return _fetch(method, endpoint, {
-    headers: {
-      ...headers,
-      Authorization: `Bearer ${a}`
-    },
     data: data,
-    queryParams: queryParams
+    queryParams: queryParams,
+    auth: true
   })
 }
 
-async function _post (endpoint, { headers = {}, data = {} }) {
-  return await _fetch('POST', endpoint, {
-    headers: headers,
-    data: data
+async function _post (endpoint, { data = {}, auth = false }) {
+  return await _fetch(Methods.POST, endpoint, {
+    data: data,
+    auth: auth
   })
 }
 
-async function _get (endpoint, { headers = {}, queryParams = {} }) {
-  return await _fetch('GET', endpoint, {
-    headers: headers,
-    queryParams: queryParams
+async function _get (endpoint, { queryParams = {}, auth = false }) {
+  return await _fetch(Methods.GET, endpoint, {
+    queryParams: queryParams,
+    auth: auth
   })
 }
 
-async function _delete (endpoint, { headers = {}, data = {} }) {
-  return await _fetch('DELETE', endpoint, {
-    headers: headers,
-    data: data
+async function _delete (endpoint, { data = {}, auth = false }) {
+  return await _fetch(Methods.DELETE, endpoint, {
+    data: data,
+    auth: auth
   })
 }
 
-async function _patch (endpoint, { headers = {}, data = {} }) {
-  return await _fetch('PATCH', endpoint, {
-    headers: headers,
-    data: data
+async function _patch (endpoint, { data = {}, auth = false }) {
+  return await _fetch(Methods.PATCH, endpoint, {
+    data: data,
+    auth: auth
   })
 }
 
