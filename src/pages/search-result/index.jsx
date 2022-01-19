@@ -43,7 +43,7 @@ export default function SearchResult () {
     <FlexBox>
       <Header searchBox placeholder="書籍を検索..." keyPress={keyPressed}/>
       <Box sx={{ flex: 1, height: 'auto', p: 3 }} component={Paper} square>
-        {searchPending ? 'けんさくちう...' : <CardList bookInfos={searchResults} text="検索ワードに該当する書籍が見つかりませんでした。"/>}
+        {searchPending ? 'けんさくちう...' : <CardList bookInfos={searchResults.books} text="検索ワードに該当する書籍が見つかりませんでした。"/>}
       </Box>
     </FlexBox>
   )
