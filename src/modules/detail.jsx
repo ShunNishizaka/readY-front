@@ -4,10 +4,11 @@ import Typography from "@mui/material/Typography";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import ButtonBase from "@mui/material/ButtonBase";
-import Button from "@mui/material/Button";
 import BookInfoIcons from "./bookInfoIcons";
 import "../index.css";
 import { useLocation } from 'react-router-dom';
+import FavoSeries from './favoSeriesButton.jsx';
+import FavoAuthor from './favoAuthorButton.jsx'
 
 
 const Img = styled("img")({
@@ -34,6 +35,8 @@ export default function Details() {
 
 
   let {state} = useLocation();
+
+  console.log(state)
 
   if(state === null){
 		state = {bookInfo: ""}
@@ -67,9 +70,8 @@ export default function Details() {
                 </ThemeProvider>
               </Grid>
               <Grid item>
-                <Button variant="contained">
-                  この書籍の作者をお気に入り登録する
-                </Button>
+                <FavoSeries bookInfo={bookInfo}/><br />
+                <FavoAuthor bookInfo={bookInfo}/>
               </Grid>
             </Grid>
           </Grid>

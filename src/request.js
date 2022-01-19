@@ -165,16 +165,47 @@ export async function patch_book_info(token,item_number,is_purchased,is_read,is_
 
 
 export async function set_favo_series(token,series){
-    await postData("/api/user/series",{
+    console.log("series_favo")
+    await postData("/api/users/series",{
         series: series
     },{
-        Authorization: token
+        Authorization: `Bearer ${token}`
     })
 }
 
 export async function get_favo_series(token){
-    await getData("/api/user/series",{},{
-        Authorization: token
+    return await getData("/api/users/series",{},{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+export async function delete_favo_series(token,series){
+    await deleteData("/api/users/series",{
+        series: series
+    },{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+export async function set_favo_Author(token,author){
+    await postData("/api/users/authors",{
+        author: author
+    },{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+export async function get_favo_Author(token){
+    return await getData("/api/users/authors",{},{
+        Authorization: `Bearer ${token}`
+    })
+}
+
+export async function delete_favo_Author(token,author){
+    await deleteData("/api/users/authors",{
+        author: author
+    },{
+        Authorization: `Bearer ${token}`
     })
 }
 
@@ -196,6 +227,7 @@ export async function authentication_token(refresh_token){
             refresh_token: refresh_token
         },{}).then(data => {
             localStorage.setItem("token",data.token)
+            console.log(data.token)
             const exp = JSON.parse(window.atob(data.token.split(".")[1])).exp;
             localStorage.setItem("exp",exp);
         })

@@ -14,7 +14,9 @@ function BookDetail() {
 		if(localStorage.getItem("refresh_token") === null){
 			navigate("/");
 		}
+		authentication_token(localStorage.getItem("refresh_token"));
 	});
+
 
 	return (
 		<div className="BookDetail">
